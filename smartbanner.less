@@ -1,4 +1,12 @@
-@import "../../utils/mixins.less";
+.gradient (@color-from, @percent-from, @color-to, @percent-to) {
+    background: @color-from;
+    background: -moz-linear-gradient(top,  @color-from @percent-from, @color-to @percent-to);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(@percent-from, @color-from), color-stop(@percent-to, @color-to));
+    background: -webkit-linear-gradient(top,  @color-from @percent-from, @color-to @percent-to);
+    background: -o-linear-gradient(top,  @color-from @percent-from, @color-to @percent-to);
+    background: -ms-linear-gradient(top,  @color-from @percent-from, @color-to @percent-to);
+    background: linear-gradient(to bottom,  @color-from @percent-from, @color-to @percent-to);
+}
 
 .smartbanner_show {
     margin-top: 82px;
