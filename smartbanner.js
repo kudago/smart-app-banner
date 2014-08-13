@@ -111,7 +111,7 @@
         this.options = extend({}, {
             daysHidden: 15,
             daysReminder: 90,
-            appStoreLanguage: 'ru', // Language code for App Store
+            appStoreLanguage: 'us', // Language code for App Store
             button: 'VIEW', // Text for the install button
             store: {
                 ios: 'On the App Store',
@@ -121,7 +121,7 @@
                 ios: 'FREE',
                 android: 'FREE'
             },
-            force: false // put platfoem type (ios, android, etc.) here for emulation
+            force: false // put platform type (ios, android, etc.) here for emulation
         }, options || {});
 
         if (this.options.force) {
