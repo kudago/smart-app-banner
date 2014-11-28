@@ -192,10 +192,10 @@
 
         },
         hide: function() {
-            removeClass(document.documentElement, 'smartbanner_show');
+            removeClass(document.body, 'smartbanner_show');
         },
         show: function() {
-            addClass(document.documentElement, 'smartbanner_show');
+            addClass(document.body, 'smartbanner_show');
         },
         close: function() {
             this.hide();
