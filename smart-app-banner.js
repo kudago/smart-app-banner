@@ -30,7 +30,7 @@ var SmartBanner = function(options) {
 		daysHidden: 15,
 		daysReminder: 90,
 		appStoreLanguage: 'us', // Language code for App Store
-		button: 'VIEW', // Text for the install button
+		button: 'OPEN', // Text for the install button
 		store: {
 			ios: 'On the App Store',
 			android: 'In Google Play'
