@@ -1,0 +1,41 @@
+<!doctype html>
+
+
+<!-- A test of smartbanner -->
+
+
+<title>Smartbanner test</title>
+
+
+<meta name="apple-itunes-app" content="app-id=502838820">
+<meta name="google-play-app" content="app-id=ru.hh.android">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<link rel="stylesheet" type="text/css" href="../smartbanner.css">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="android-touch-icon" href="android-icon.png" />
+
+
+<script type="text/javascript" src="../smartbanner.js"></script>
+
+
+<script>
+	new SmartBanner({
+		daysHidden: 15, // days to hide banner after close button is clicked (defaults to 15)
+		daysReminder: 90, // days to hide banner after "VIEW" button is clicked (defaults to 90)
+		appStoreLanguage: 'us', // language code for the App Store (defaults to us)
+		title: 'HeadHunter',
+		author: 'HeadHunter LLC',
+		button: 'VIEW',
+		store: {
+			ios: 'On the App Store',
+			android: 'In Google Play'
+		},
+		price: {
+			ios: 'FREE',
+			android: 'FREE'
+		}
+		// , force: 'ios' // Uncomment for platform emulation
+	});
+</script>
