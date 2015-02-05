@@ -132,7 +132,8 @@
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) inset, 0 1px 1px rgba(255, 255, 255, 0.3);
 }
 
-.smartbanner-android .smartbanner-close:active, .smartbanner-close:hover {
+.smartbanner-android .smartbanner-close:active,
+.smartbanner-android .smartbanner-close:hover {
 	color: #eee;
 }
 
@@ -156,7 +157,8 @@
 	box-shadow: none;
 }
 
-.smartbanner-android .smartbanner-button:active, .smartbanner-button:hover {
+.smartbanner-android .smartbanner-button:active,
+.smartbanner-android .smartbanner-button:hover {
 	background: none;
 }
 
@@ -171,7 +173,8 @@
 	box-shadow: none;
 }
 
-.smartbanner-android .smartbanner-button-text:active, .smartbanner-button-text:hover {
+.smartbanner-android .smartbanner-button-text:active,
+.smartbanner-android .smartbanner-button-text:hover {
 	background: #2AC7E1;
 }
 
