@@ -21,6 +21,13 @@ var mixins = {
 		getStoreLink: function() {
 			return 'http://play.google.com/store/apps/details?id=' + this.appId;
 		}
+	},
+	windows: {
+		appMeta: 'msApplication-ID',
+		iconRels: ['windows-touch-icon', 'apple-touch-icon-precomposed', 'apple-touch-icon'],
+		getStoreLink: function() {
+			return 'http://www.windowsphone.com/s?appid=' + this.appId;
+		}
 	}
 };
 
@@ -33,17 +40,21 @@ var SmartBanner = function(options) {
 		button: 'OPEN', // Text for the install button
 		store: {
 			ios: 'On the App Store',
-			android: 'In Google Play'
+			android: 'In Google Play',
+			windows: 'In the Windows Store'
 		},
 		price: {
 			ios: 'FREE',
-			android: 'FREE'
+			android: 'FREE',
+			windows: 'FREE'
 		},
 		force: false // put platform type (ios, android, etc.) here for emulation
 	}, options || {});
 
 	if (this.options.force) {
 		this.type = this.options.force;
+	} else if (userAgent.match(/Windows Phone/i) != null && userAgent.match(/Touch/i) !== null) {
+		this.type = 'windows';
 	} else if (userAgent.match(/iPad|iPhone|iPod/i) !== null) {
 		if (userAgent.match(/Safari/i) !== null &&
 				(userAgent.match(/CriOS/i) !== null ||
@@ -142,8 +153,11 @@ SmartBanner.prototype = {
 		if (!meta) {
 			return;
 		}
-		this.appId = /app-id=([^\s,]+)/.exec(meta.getAttribute('content'))[1];
-
+		if (this.type === 'windows') {
+			this.appId = meta.getAttribute('content');
+		} else {
+			this.appId = /app-id=([^\s,]+)/.exec(meta.getAttribute('content'))[1];
+		}
 		return this.appId;
 	}
 };
@@ -174,36 +188,36 @@ exports.engine = function(obj){
 
 },{}],3:[function(require,module,exports){
 var exports = module.exports = function (doc) {
-    if (!doc) doc = {};
-    if (typeof doc === 'string') doc = { cookie: doc };
-    if (doc.cookie === undefined) doc.cookie = '';
-    
-    var self = {};
-    self.get = function (key) {
-        var splat = doc.cookie.split(/;\s*/);
-        for (var i = 0; i < splat.length; i++) {
-            var ps = splat[i].split('=');
-            var k = unescape(ps[0]);
-            if (k === key) return unescape(ps[1]);
-        }
-        return undefined;
-    };
-    
-    self.set = function (key, value, opts) {
-        if (!opts) opts = {};
-        var s = escape(key) + '=' + escape(value);
-        if (opts.expires) s += '; expires=' + opts.expires;
-        if (opts.path) s += '; path=' + escape(opts.path);
-        doc.cookie = s;
-        return s;
-    };
-    return self;
+	if (!doc) doc = {};
+	if (typeof doc === 'string') doc = { cookie: doc };
+	if (doc.cookie === undefined) doc.cookie = '';
+	
+	var self = {};
+	self.get = function (key) {
+		var splat = doc.cookie.split(/;\s*/);
+		for (var i = 0; i < splat.length; i++) {
+			var ps = splat[i].split('=');
+			var k = unescape(ps[0]);
+			if (k === key) return unescape(ps[1]);
+		}
+		return undefined;
+	};
+	
+	self.set = function (key, value, opts) {
+		if (!opts) opts = {};
+		var s = escape(key) + '=' + escape(value);
+		if (opts.expires) s += '; expires=' + opts.expires;
+		if (opts.path) s += '; path=' + escape(opts.path);
+		doc.cookie = s;
+		return s;
+	};
+	return self;
 };
 
 if (typeof document !== 'undefined') {
-    var cookie = exports(document);
-    exports.get = cookie.get;
-    exports.set = cookie.set;
+	var cookie = exports(document);
+	exports.get = cookie.get;
+	exports.set = cookie.set;
 }
 
 },{}],4:[function(require,module,exports){
@@ -226,17 +240,17 @@ module.exports = function () {
 module.exports = extend
 
 function extend(target) {
-    for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i]
+	for (var i = 1; i < arguments.length; i++) {
+		var source = arguments[i]
 
-        for (var key in source) {
-            if (source.hasOwnProperty(key)) {
-                target[key] = source[key]
-            }
-        }
-    }
+		for (var key in source) {
+			if (source.hasOwnProperty(key)) {
+				target[key] = source[key]
+			}
+		}
+	}
 
-    return target
+	return target
 }
 
 },{}]},{},[1])(1)
