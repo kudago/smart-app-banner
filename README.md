@@ -44,11 +44,13 @@ Based on 'jQuery Smart Banner' by Arnold Daniels <arnold@jasny.net> https://gith
           button: 'VIEW',
           store: {
               ios: 'On the App Store',
-              android: 'In Google Play'
+              android: 'In Google Play',
+              windows: 'In Windows store'
           },
           price: {
               ios: 'FREE',
-              android: 'FREE'
+              android: 'FREE',
+              windows: 'FREE'
           }
           // , force: 'ios' // Uncomment for platform emulation
       });
