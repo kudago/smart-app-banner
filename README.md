@@ -33,28 +33,28 @@ Based on 'jQuery Smart Banner' by Arnold Daniels <arnold@jasny.net> https://gith
   </head>
   <body>
     ...
-    <script src="node_modules/smart-app-banner/smart-app-banner.js"></script>
-    <script type="text/javascript">
-      new SmartBanner({
-          daysHidden: 15,   // days to hide banner after close button is clicked (defaults to 15)
-          daysReminder: 90, // days to hide banner after "VIEW" button is clicked (defaults to 90)
-          appStoreLanguage: 'us', // language code for the App Store (defaults to us)
-          title: 'MyPage',
-          author: 'MyCompany LLC',
-          button: 'VIEW',
-          store: {
-              ios: 'On the App Store',
-              android: 'In Google Play',
-              windows: 'In Windows store'
-          },
-          price: {
-              ios: 'FREE',
-              android: 'FREE',
-              windows: 'FREE'
-          }
-          // , force: 'ios' // Uncomment for platform emulation
-      });
-    </script>
   </body>
+  <script src="node_modules/smart-app-banner/smart-app-banner.js"></script>
+  <script type="text/javascript">
+    new SmartBanner({
+        daysHidden: 15,   // days to hide banner after close button is clicked (defaults to 15)
+        daysReminder: 90, // days to hide banner after "VIEW" button is clicked (defaults to 90)
+        appStoreLanguage: 'us', // language code for the App Store (defaults to us)
+        title: 'MyPage',
+        author: 'MyCompany LLC',
+        button: 'VIEW',
+        store: {
+            ios: 'On the App Store',
+            android: 'In Google Play',
+            windows: 'In Windows store'
+        },
+        price: {
+            ios: 'FREE',
+            android: 'FREE',
+            windows: 'FREE'
+        }
+        // , force: 'ios' // Uncomment for platform emulation
+    });
+  </script>
 </html>
 ```
