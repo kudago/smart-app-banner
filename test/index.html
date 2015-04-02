@@ -1,0 +1,58 @@
+<!doctype html>
+
+
+<!-- A test of smartbanner -->
+
+
+<title>Smartbanner test</title>
+
+
+<meta name="apple-itunes-app" content="app-id=502838820">
+<meta name="google-play-app" content="app-id=ru.hh.android">
+
+<meta name="msApplication-ID" content="microsoft.build.App"/>
+<meta name="msApplication-PackageFamilyName" content="microsoft.build_8wekyb3d8bbwe"/>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<link rel="stylesheet" type="text/css" href="../smart-app-banner.css">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="android-touch-icon" href="icon.png" />
+<link rel="windows-touch-icon" href="icon.png" />
+
+<style type="text/css">
+	* {
+		box-sizing: border-box;
+	}
+</style>
+
+<script type="text/javascript" src="../smart-app-banner.js"></script>
+
+
+<script>
+	banner = undefined;
+	function run(force) {
+		var n = document.querySelector('.smartbanner');
+		if (n) {
+			n.parentNode.removeChild(n);
+		}
+		new SmartBanner({
+				daysHidden: 15, // days to hide banner after close button is clicked (defaults to 15)
+				daysReminder: 90, // days to hide banner after "VIEW" button is clicked (defaults to 90)
+				appStoreLanguage: 'us', // language code for the App Store (defaults to us)
+				title: 'KudaGo',
+				author: 'KudaGo Inc',
+				button: 'OPEN',
+				force: force
+		});
+	};
+</script>
+
+<body>
+	<div>
+		<a href="#" onclick="run('android')">android</a>
+		<a href="#" onclick="run('ios')">ios</a>
+		<a href="#" onclick="run('windows')">windows</a>
+	</div>
+</body>

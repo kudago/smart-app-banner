@@ -1,0 +1,47 @@
+{
+  "name": "smart-app-banner",
+  "version": "1.1.1",
+  "description": "Smart banner for Android or iOS",
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify index.js -s SmartBanner | ccjs - > smart-app-banner.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kudago/smart-app-banner.git"
+  },
+  "keywords": [
+    "smart",
+    "banner",
+    "smartbanner",
+    "android",
+    "iphone",
+    "application"
+  ],
+  "author": "Vitaly Glibin",
+  "contributors": [
+    {
+      "name": "Dmitry Ywanov",
+      "email": "dfcreative@gmail.com"
+    },
+    {
+      "name": "Maxime VALY",
+      "email": "maxime.valy@gmail.com",
+      "url": "http://maximevaly.github.com/"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kudago/smart-app-banner/issues"
+  },
+  "homepage": "https://github.com/kudago/smart-app-banner",
+  "dependencies": {
+    "xtend": "^4.0.0",
+    "component-query": "^0.0.3",
+    "get-doc": "^1.0.3",
+    "cookie-cutter": "^0.1.1"
+  },
+  "devDependencies": {
+    "closurecompiler": "^1.5.1"
+  }
+}
