@@ -56,7 +56,7 @@ var SmartBanner = function(options) {
 	else if (userAgent.match(/Windows Phone/i) != null && userAgent.match(/Touch/i) !== null) {
 		this.type = 'windows';
  	}
- 	else if (userAgent.match(/iPad|iPhone|iPod/i) !== null) {		 	} else if (userAgent.match(/iPad|iPhone|iPod/i) !== null) {
+ 	else if (userAgent.match(/iPad|iPhone|iPod/i) !== null) {
 		if (userAgent.match(/Safari/i) !== null &&
 				(userAgent.match(/CriOS/i) !== null ||
 				Number(userAgent.substr(userAgent.indexOf('OS ') + 3, 3).replace('_', '.')) < 6)) {
