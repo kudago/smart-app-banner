@@ -3,7 +3,7 @@ var q = require('component-query');
 var doc = require('get-doc');
 var root = doc && doc.documentElement;
 var cookie = require('cookie-cutter');
-
+var ua = require('ua-parser-js');
 
 // platform dependent functionality
 var mixins = {
@@ -31,7 +31,7 @@ var mixins = {
 };
 
 var SmartBanner = function(options) {
-	var userAgent = navigator.userAgent;
+	var agent = ua(navigator.userAgent);
 	this.options = extend({}, {
 		daysHidden: 15,
 		daysReminder: 90,
@@ -52,17 +52,11 @@ var SmartBanner = function(options) {
 
 	if (this.options.force) {
 		this.type = this.options.force;
-	}
-	else if (userAgent.match(/Windows Phone/i) != null && userAgent.match(/Touch/i) !== null) {
+	} else if (agent.os.name === 'Windows Phone' || agent.os.name === 'Windows Mobile') {
 		this.type = 'windows';
- 	}
- 	else if (userAgent.match(/iPad|iPhone|iPod/i) !== null) {
-		if (userAgent.match(/Safari/i) !== null &&
-				(userAgent.match(/CriOS/i) !== null ||
-				Number(userAgent.substr(userAgent.indexOf('OS ') + 3, 3).replace('_', '.')) < 6)) {
-			this.type = 'ios';
-		} // Check webview and native smart banner support (iOS 6+)
-	} else if (userAgent.match(/Android/i) !== null) {
+	} else if (agent.os.name === 'iOS') {
+		this.type = 'ios';
+	} else if (agent.os.name === 'Android') {
 		this.type = 'android';
 	}
 
