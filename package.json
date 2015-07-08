@@ -43,6 +43,8 @@
     "xtend": "^4.0.0"
   },
   "devDependencies": {
+    "browserify": "^10.2.4",
+    "ccjs": "^0.2.0",
     "closurecompiler": "^1.5.1"
   }
 }
