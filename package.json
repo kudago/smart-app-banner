@@ -36,10 +36,10 @@
   },
   "homepage": "https://github.com/kudago/smart-app-banner",
   "dependencies": {
-    "xtend": "^4.0.0",
     "component-query": "^0.0.3",
+    "cookie-cutter": "^0.1.1",
     "get-doc": "^1.0.3",
-    "cookie-cutter": "^0.1.1"
+    "xtend": "^4.0.0"
   },
   "devDependencies": {
     "closurecompiler": "^1.5.1"
