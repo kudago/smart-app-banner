@@ -53,6 +53,7 @@ Based on 'jQuery Smart Banner' by Arnold Daniels <arnold@jasny.net> https://gith
               windows: 'FREE'
           }
           // , force: 'ios' // Uncomment for platform emulation
+          // , show: false // Default: true, show immediately after it is created.
       });
     </script>
   </body>
