@@ -31,7 +31,7 @@ var mixins = {
 	}
 };
 
-var SmartBanner = function(options) {
+var SmartBanner = function(options, doNotShow) {
 	var agent = ua(navigator.userAgent);
 	this.options = extend({}, {
 		daysHidden: 15,
@@ -48,7 +48,8 @@ var SmartBanner = function(options) {
 			android: 'FREE',
 			windows: 'FREE'
 		},
-		force: false // put platform type (ios, android, etc.) here for emulation
+		force: false, // put platform type (ios, android, etc.) here for emulation,
+		show: true //  show immediately after it is created
 	}, options || {});
 
 	if (this.options.force) {
@@ -77,7 +78,10 @@ var SmartBanner = function(options) {
 	}
 
 	this.create();
-	this.show();
+	// Unless specified, show after creating banner.
+	if (!!this.options.show) {
+		this.show();
+	}
 };
 
 SmartBanner.prototype = {
