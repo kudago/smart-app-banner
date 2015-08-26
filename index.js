@@ -4,6 +4,7 @@ var doc = require('get-doc');
 var root = doc && doc.documentElement;
 var cookie = require('cookie-cutter');
 var ua = require('ua-parser-js');
+var userLang = navigator.language.slice(-2) || navigator.userLanguage.slice(-2) || 'us';
 
 // platform dependent functionality
 var mixins = {
@@ -35,7 +36,7 @@ var SmartBanner = function(options) {
 	this.options = extend({}, {
 		daysHidden: 15,
 		daysReminder: 90,
-		appStoreLanguage: 'us', // Language code for App Store
+		appStoreLanguage: userLang, // Language code for App Store
 		button: 'OPEN', // Text for the install button
 		store: {
 			ios: 'On the App Store',
