@@ -15,6 +15,16 @@ Based on 'jQuery Smart Banner' by Arnold Daniels <arnold@jasny.net> https://gith
 
 `$ npm install --save smart-app-banner`
 
+## Development Installation
+
+You have to install [browserify](http://browserify.org/) first in order to compile to package. Then perfomr the following steps: 
+
+```
+npm install
+npm run build
+```
+Note that you only have to do ``npm install`` the first time. 
+
 
 ## Usage
 
