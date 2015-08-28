@@ -17,7 +17,7 @@ Based on 'jQuery Smart Banner' by Arnold Daniels <arnold@jasny.net> https://gith
 
 ## Development Installation
 
-You have to install [browserify](http://browserify.org/) first in order to compile to package. Then perfomr the following steps: 
+You have to install [browserify](http://browserify.org/) first in order to compile the package. Then perform the following steps: 
 
 ```
 npm install
