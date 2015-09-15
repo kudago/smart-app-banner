@@ -32,13 +32,14 @@
 	display: inline-block;
 	vertical-align: middle;
 	margin: 0 5px 0 5px;
-	font-family: Arial;
+	font-family: 'ArialRoundedMTBold', Arial;
 	font-size: 20px;
 	text-align: center;
 	color: #888;
 	text-decoration: none;
 	border: 0;
 	border-radius: 14px;
+    -webkit-font-smoothing: subpixel-antialiased;
 }
 
 .smartbanner-close:active,
@@ -111,8 +112,10 @@
 	width: 18px;
 	height: 18px;
 	line-height: 18px;
+    font-family: Arial;
 	color: #888;
 	text-shadow: 0 1px 0 white;
+    -webkit-font-smoothing: none;
 }
 
 .smartbanner-ios .smartbanner-close:active,
