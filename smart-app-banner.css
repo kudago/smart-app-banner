@@ -87,7 +87,7 @@
 }
 
 .smartbanner-button:active, .smartbanner-button:hover {
-	/*color: #aaa;*/
+	color: #aaa;
 }
 
 .smartbanner-button-text {
@@ -116,7 +116,7 @@
 
 .smartbanner-ios .smartbanner-close:active,
 .smartbanner-ios .smartbanner-close:hover {
-	/*color: #aaa;*/
+	color: #f2f2f2;
 }
 
 .smartbanner-ios .smartbanner-icon {
@@ -137,16 +137,11 @@
     padding: 0 10px;
     min-width: 10%;
     color: #0C71FD;
-    /* background: #efefef; */
-    /* background: linear-gradient(to bottom, #efefef, #dcdcdc); */
-    /* border-radius: 3px; */
-    /* box-shadow: inset 0 0 0 1px #bfbfbf, 0 1px 0 rgba(255, 255, 255, 0.6), 0 2px 0 rgba(255, 255, 255, 0.7) inset; */
 }
 
 .smartbanner-ios .smartbanner-button:active,
 .smartbanner-ios .smartbanner-button:hover {
-	/*background: #dcdcdc;
-	background: linear-gradient(to bottom, #dcdcdc, #efefef);*/
+	background: #f2f2f2;
 }
 
 .smartbanner-ios .smartbanner-button-text {
