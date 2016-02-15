@@ -135,14 +135,14 @@ SmartBanner.prototype = {
 		this.hide();
 		cookie.set('smartbanner-closed', 'true', {
 			path: '/',
-			expires: +new Date() + this.options.daysHidden * 1000 * 60 * 60 * 24
+			expires: new Date(+new Date() + this.options.daysHidden * 1000 * 60 * 60 * 24)
 		});
 	},
 	install: function() {
 		this.hide();
 		cookie.set('smartbanner-installed', 'true', {
 			path: '/',
-			expires: +new Date() + this.options.daysReminder * 1000 * 60 * 60 * 24
+			expires: new Date(+new Date() + this.options.daysReminder * 1000 * 60 * 60 * 24)
 		});
 	},
 	parseAppId: function() {
