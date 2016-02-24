@@ -4,7 +4,10 @@ var doc = require('get-doc');
 var root = doc && doc.documentElement;
 var cookie = require('cookie-cutter');
 var ua = require('ua-parser-js');
-var userLang = navigator.language.slice(-2) || navigator.userLanguage.slice(-2) || 'us';
+
+// IE < 11 doesn't support navigator language property.
+var userLangAttribute = navigator.language || navigator.userLanguage || navigator.browserLanguage;
+var userLang = userLangAttribute.slice(-2) || 'us';
 
 // platform dependent functionality
 var mixins = {
