@@ -1,0 +1,100 @@
+.smartbanner-show {
+	margin-top: $smart-app-banner-height;
+}
+
+.smartbanner {
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+	width: 100%;
+	height: $smart-app-banner-height;
+	line-height: $smart-app-banner-height;
+	font-family: $smart-app-banner-font-family;
+	background: #f4f4f4;
+	z-index: $smart-app-banner-z-index;
+	-webkit-font-smoothing: antialiased;
+	overflow: hidden;
+	-webkit-text-size-adjust: none;
+
+	.smartbanner-show & {
+		display: block;
+	}
+}
+
+.smartbanner-container {
+	margin: 0 auto;
+	white-space: nowrap;
+}
+
+.smartbanner-close {
+	display: inline-block;
+	vertical-align: middle;
+	font-family: 'ArialRoundedMTBold', Arial;
+	margin: 0 5px 0 5px;
+	font-size: 20px;
+	text-align: center;
+	color: #888;
+	text-decoration: none;
+	border: 0;
+	border-radius: 14px;
+	-webkit-font-smoothing: subpixel-antialiased;
+}
+
+.smartbanner-close:active,
+.smartbanner-close:hover {
+	color: #aaa;
+}
+
+.smartbanner-icon {
+	display: inline-block;
+	vertical-align: middle;
+	width: 57px;
+	height: 57px;
+	margin-right: 12px;
+	background-size: cover;
+	border-radius: 10px;
+}
+
+.smartbanner-info {
+	display: inline-block;
+	vertical-align: middle;
+	width: 44%;
+	font-size: 11px;
+	line-height: 1.2em;
+	font-weight: bold;
+}
+
+.smartbanner-title {
+	font-size: 13px;
+	line-height: 18px;
+}
+
+.smartbanner-button {
+	position: absolute;
+	right: 20px;
+	top: 0;
+	bottom: 0;
+	margin: auto 0;
+	height: 24px;
+	font-size: 14px;
+	line-height: 24px;
+	text-align: center;
+	font-weight: bold;
+	color: #6a6a6a;
+	text-transform: uppercase;
+	text-decoration: none;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.smartbanner-button:active,
+.smartbanner-button:hover {
+	color: #aaa;
+}
+
+.smartbanner-button-text {
+}
+
+.smartbanner-button-text:active,
+.smartbanner-button-text:hover {
+}

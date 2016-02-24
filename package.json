@@ -4,7 +4,9 @@
   "description": "Smart banner for Android or iOS",
   "main": "index.js",
   "scripts": {
-    "build": "browserify index.js -s SmartBanner | ccjs - > smart-app-banner.js"
+    "build": "npm run build-js && npm run build-css",
+    "build-js": "browserify index.js -s SmartBanner | ccjs - > smart-app-banner.js",
+    "build-css": "node-sass sass/smart-app-banner.scss smart-app-banner.css --output-style expanded"
   },
   "repository": {
     "type": "git",
@@ -45,6 +47,7 @@
   "devDependencies": {
     "browserify": "^10.2.4",
     "ccjs": "^0.2.0",
-    "closurecompiler": "^1.5.1"
+    "closurecompiler": "^1.5.1",
+    "node-sass": "^3.4.2"
   }
 }
