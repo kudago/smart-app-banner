@@ -12,7 +12,7 @@ var userLang = userLangAttribute.slice(-2) || 'us';
 // platform dependent functionality
 var mixins = {
 	ios: {
-		appMeta: 'apple-itunes-app',
+		appMeta: 'apple-itunes-app-custom', // Mobile Safari uses apple-itunes-app to show banner. Use a different meta to avoid double banner
 		iconRels: ['apple-touch-icon-precomposed', 'apple-touch-icon'],
 		getStoreLink: function() {
 			return 'https://itunes.apple.com/' + this.options.appStoreLanguage + '/app/id' + this.appId;
