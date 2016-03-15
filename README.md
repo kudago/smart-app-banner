@@ -23,7 +23,9 @@ Based on 'jQuery Smart Banner' by Arnold Daniels <arnold@jasny.net> https://gith
   <head>
     <title>MyPage</title>
 
-    <meta name="apple-itunes-app" content="app-id=502838820">
+    <!-- Mobile Safari will automatically show a built in banner when detect meta tag apple-itunes-app.
+         Use a different tag to avoid show two banners. -->
+    <meta name="apple-itunes-app-custom" content="app-id=502838820">
     <meta name="google-play-app" content="app-id=ru.hh.android">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
