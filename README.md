@@ -68,6 +68,4 @@ The following commands are available for compiling the project:
 | Command | Result |
 | ------- | ------ |
 | `npm install` | Installs the required dependencies |
-| `npm run build` | Builds both js and css. |
-| `npm run build-js` | Builds application JavaScript |
-| `npm run build-css` | Builds application CSS |
+| `npm run build` | Builds the application JavaScript. |
