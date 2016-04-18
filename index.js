@@ -4,7 +4,10 @@ var doc = require('get-doc');
 var root = doc && doc.documentElement;
 var cookie = require('cookie-cutter');
 var ua = require('ua-parser-js');
-var userLang = navigator.language.slice(-2) || navigator.userLanguage.slice(-2) || 'us';
+
+// IE < 11 doesn't support navigator language property.
+var userLangAttribute = navigator.language || navigator.userLanguage || navigator.browserLanguage;
+var userLang = userLangAttribute.slice(-2) || 'us';
 
 // platform dependent functionality
 var mixins = {
@@ -139,14 +142,14 @@ SmartBanner.prototype = {
 		this.hide();
 		cookie.set('smartbanner-closed', 'true', {
 			path: '/',
-			expires: +new Date() + this.options.daysHidden * 1000 * 60 * 60 * 24
+			expires: new Date(+new Date() + this.options.daysHidden * 1000 * 60 * 60 * 24)
 		});
 	},
 	install: function() {
 		this.hide();
 		cookie.set('smartbanner-installed', 'true', {
 			path: '/',
-			expires: +new Date() + this.options.daysReminder * 1000 * 60 * 60 * 24
+			expires: new Date(+new Date() + this.options.daysReminder * 1000 * 60 * 60 * 24)
 		});
 	},
 	parseAppId: function() {
