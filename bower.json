@@ -6,7 +6,10 @@
     "glibin.v@gmail.com"
   ],
   "description": "Lightweight smart app banner with no jQuery (or any other framework) requirement.",
-  "main": "smart-app-banner.js",
+  "main": [
+    "smart-app-banner.css",
+    "smart-app-banner.js"
+  ],
   "moduleType": [
     "globals"
   ],
