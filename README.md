@@ -69,3 +69,7 @@ The following commands are available for compiling the project:
 | ------- | ------ |
 | `npm install` | Installs the required dependencies |
 | `npm run build` | Builds the application JavaScript. |
+
+## See also
+
+* [smartappbanner.js](https://github.com/ain/smartbanner.js) an alternative smart app banner.
