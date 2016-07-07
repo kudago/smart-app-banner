@@ -51,7 +51,9 @@ var SmartBanner = function(options) {
 			android: 'FREE',
 			windows: 'FREE'
 		},
-		force: false // put platform type (ios, android, etc.) here for emulation
+		theme: '', // put platform type ('ios', 'android', etc.) here to force single theme on all device
+		icon: '', // full path to icon image if not using website icon image
+		force: '' // put platform type ('ios', 'android', etc.) here for emulation
 	}, options || {});
 
 	if (this.options.force) {
@@ -69,8 +71,13 @@ var SmartBanner = function(options) {
 		this.type = 'android';
 	}
 
-	// Don't show banner if device isn't iOS or Android, website is loaded in app, user dismissed banner, or we have no app id in meta
+	// Don't show banner on ANY of the following conditions:
+	// - device os is not supported,
+	// - user is on mobile safari for ios 6 or greater (iOS >= 6 has native support for SmartAppBanner)
+	// - running on standalone mode
+	// - user dismissed banner
 	if (!this.type
+		|| ( this.type === 'ios' && agent.browser.name === 'Mobile Safari' && parseInt(agent.os.version) >= 6 )
 		|| navigator.standalone
 		|| cookie.get('smartbanner-closed')
 		|| cookie.get('smartbanner-installed')) {
@@ -79,6 +86,7 @@ var SmartBanner = function(options) {
 
 	extend(this, mixins[this.type]);
 
+	// - If we dont have app id in meta, dont display the banner
 	if (!this.parseAppId()) {
 		return;
 	}
@@ -94,17 +102,24 @@ SmartBanner.prototype = {
 		var link = this.getStoreLink();
 		var inStore = this.options.price[this.type] + ' - ' + this.options.store[this.type];
 		var icon;
-		for (var i = 0; i < this.iconRels.length; i++) {
-			var rel = q('link[rel="'+this.iconRels[i]+'"]');
-			if (rel) {
-				icon = rel.getAttribute('href');
-				break;
+
+		if (this.options.icon) {
+			icon = this.options.icon;
+		} else {
+			for (var i = 0; i < this.iconRels.length; i++) {
+				var rel = q('link[rel="' + this.iconRels[i] + '"]');
+
+				if (rel) {
+					icon = rel.getAttribute('href');
+					break;
+				}
 			}
 		}
 
 		var sb = doc.createElement('div');
-		sb.className = 'smartbanner smartbanner-' + this.type;
+		var theme = this.options.theme || this.type;
 
+		sb.className = 'smartbanner' + ' smartbanner-' + theme;
 		sb.innerHTML = '<div class="smartbanner-container">' +
 							'<a href="javascript:void(0);" class="smartbanner-close">&times;</a>' +
 							'<span class="smartbanner-icon" style="background-image: url('+icon+')"></span>' +

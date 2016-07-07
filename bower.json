@@ -1,12 +1,15 @@
 {
   "name": "smart-app-banner",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "homepage": "https://github.com/glibin/smart-app-banner",
   "authors": [
     "glibin.v@gmail.com"
   ],
   "description": "Lightweight smart app banner with no jQuery (or any other framework) requirement.",
-  "main": "smart-app-banner.js",
+  "main": [
+    "smart-app-banner.css",
+    "smart-app-banner.js"
+  ],
   "moduleType": [
     "globals"
   ],

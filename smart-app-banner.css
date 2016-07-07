@@ -1,10 +1,10 @@
 .smartbanner-show {
 	margin-top: 80px;
 }
+
 .smartbanner-show .smartbanner {
 	display: block;
 }
-
 
 /** Default **/
 .smartbanner {
@@ -99,7 +99,6 @@
 .smartbanner-button-text:hover {
 }
 
-
 /** iOS **/
 .smartbanner-ios {
 	background: #f4f4f4;
@@ -128,7 +127,7 @@
 	box-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
-.smartbanner-ios .smartbanner-info { 
+.smartbanner-ios .smartbanner-info {
 	color: #6a6a6a;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
 }
@@ -161,10 +160,9 @@
 .smartbanner-ios .smartbanner-button-text:hover {
 }
 
-
 /** Android **/
 .smartbanner-android {
-	background: #3d3d3d url('dark_background_stripes.gif');
+	background: #3d3d3d url(data:image/gif;base64,R0lGODlhCAAIAIABAFVVVf///yH5BAEHAAEALAAAAAAIAAgAAAINRG4XudroGJBRsYcxKAA7);
 	box-shadow: inset 0 4px 0 #88B131;
 	line-height: 82px;
 }
@@ -230,7 +228,6 @@
 .smartbanner-android .smartbanner-button-text:hover {
 	background: #2AC7E1;
 }
-
 
 /** Windows **/
 .smartbanner-windows {
