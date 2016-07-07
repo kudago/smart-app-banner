@@ -10,7 +10,7 @@
 .smartbanner {
 	position: absolute;
 	left: 0;
-	top: 0;
+	top: -80px;
 	display: none;
 	width: 100%;
 	height: 80px;
