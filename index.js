@@ -12,21 +12,27 @@ var userLang = userLangAttribute.slice(-2) || 'us';
 // platform dependent functionality
 var mixins = {
 	ios: {
-		appMeta: 'apple-itunes-app',
+		getAppMeta: function() {
+			return this.options.appMeta.ios;
+		},
 		iconRels: ['apple-touch-icon-precomposed', 'apple-touch-icon'],
 		getStoreLink: function() {
 			return 'https://itunes.apple.com/' + this.options.appStoreLanguage + '/app/id' + this.appId;
 		}
 	},
 	android: {
-		appMeta: 'google-play-app',
+		getAppMeta: function() {
+			return this.options.appMeta.android;
+		},
 		iconRels: ['android-touch-icon', 'apple-touch-icon-precomposed', 'apple-touch-icon'],
 		getStoreLink: function() {
 			return 'http://play.google.com/store/apps/details?id=' + this.appId;
 		}
 	},
 	windows: {
-		appMeta: 'msApplication-ID',
+		getAppMeta: function() {
+			return this.options.appMeta.windows;
+		},
 		iconRels: ['windows-touch-icon', 'apple-touch-icon-precomposed', 'apple-touch-icon'],
 		getStoreLink: function() {
 			return 'http://www.windowsphone.com/s?appid=' + this.appId;
@@ -51,6 +57,12 @@ var SmartBanner = function(options) {
 			android: 'FREE',
 			windows: 'FREE'
 		},
+		appMeta: {
+			ios: 'apple-itunes-app',
+			android: 'google-play-app',
+			windows: 'msApplication-ID'
+		},
+		agentOSVersionCheck: true, // set to false to display smart-banner for newer iOS devices too
 		theme: '', // put platform type ('ios', 'android', etc.) here to force single theme on all device
 		icon: '', // full path to icon image if not using website icon image
 		force: '' // put platform type ('ios', 'android', etc.) here for emulation
@@ -72,7 +84,7 @@ var SmartBanner = function(options) {
 	// - running on standalone mode
 	// - user dismissed banner
 	if (!this.type
-		|| ( this.type === 'ios' && agent.browser.name === 'Mobile Safari' && parseInt(agent.os.version) >= 6 )
+		|| (this.options.agentOSVersionCheck && this.type === 'ios' && agent.browser.name === 'Mobile Safari' && parseInt(agent.os.version) >= 6 )
 		|| navigator.standalone
 		|| cookie.get('smartbanner-closed')
 		|| cookie.get('smartbanner-installed')) {
@@ -116,17 +128,17 @@ SmartBanner.prototype = {
 
 		sb.className = 'smartbanner' + ' smartbanner-' + theme;
 		sb.innerHTML = '<div class="smartbanner-container">' +
-							'<a href="javascript:void(0);" class="smartbanner-close">&times;</a>' +
-							'<span class="smartbanner-icon" style="background-image: url('+icon+')"></span>' +
-							'<div class="smartbanner-info">' +
-								'<div class="smartbanner-title">'+this.options.title+'</div>' +
-								'<div>'+this.options.author+'</div>' +
-								'<span>'+inStore+'</span>' +
-							'</div>' +
-							'<a href="'+link+'" class="smartbanner-button">' +
-								'<span class="smartbanner-button-text">'+this.options.button+'</span>' +
-							'</a>' +
-						'</div>';
+				'<a href="javascript:void(0);" class="smartbanner-close">&times;</a>' +
+				'<span class="smartbanner-icon" style="background-image: url('+icon+')"></span>' +
+				'<div class="smartbanner-info">' +
+					'<div class="smartbanner-title">'+this.options.title+'</div>' +
+					'<div>'+this.options.author+'</div>' +
+					'<span>'+inStore+'</span>' +
+				'</div>' +
+				'<a href="'+link+'" class="smartbanner-button">' +
+					'<span class="smartbanner-button-text">'+this.options.button+'</span>' +
+				'</a>' +
+			'</div>';
 
 		//there isn’t neccessary a body
 		if (doc.body) {
@@ -163,7 +175,7 @@ SmartBanner.prototype = {
 		});
 	},
 	parseAppId: function() {
-		var meta = q('meta[name="' + this.appMeta + '"]');
+		var meta = q('meta[name="' + this.getAppMeta() + '"]');
 		if (!meta) {
 			return;
 		}
