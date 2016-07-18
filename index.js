@@ -136,7 +136,7 @@ SmartBanner.prototype = {
 					'<span>'+inStore+'</span>' +
 				'</div>' +
 				'<a href="'+link+'" class="smartbanner-button">' +
-				'	<span class="smartbanner-button-text">'+this.options.button+'</span>' +
+					'<span class="smartbanner-button-text">'+this.options.button+'</span>' +
 				'</a>' +
 			'</div>';
 
