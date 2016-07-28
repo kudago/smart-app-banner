@@ -55,6 +55,7 @@ Based on 'jQuery Smart Banner' by Arnold Daniels <arnold@jasny.net> https://gith
           // , theme: '' // put platform type ('ios', 'android', etc.) here to force single theme on all device
           // , icon: '' // full path to icon image if not using website icon image
           // , force: 'ios' // Uncomment for platform emulation
+          // , innerHTML: '<div class='smart-banner-container your-class'>...</div>' // pass banner's HTML as you like
       });
     </script>
   </body>
