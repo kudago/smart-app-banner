@@ -115,7 +115,7 @@ SmartBanner.prototype = {
 		var theme = this.options.theme || this.type;
 
 		sb.className = 'smartbanner' + ' smartbanner-' + theme;
-		sb.innerHTML = '<div class="smartbanner-container">' +
+		sb.innerHTML = this.options.innerHTML || '<div class="smartbanner-container">' +
 							'<a href="javascript:void(0);" class="smartbanner-close">&times;</a>' +
 							'<span class="smartbanner-icon" style="background-image: url('+icon+')"></span>' +
 							'<div class="smartbanner-info">' +
