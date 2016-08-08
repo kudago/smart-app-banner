@@ -13,6 +13,7 @@ var userLang = userLangAttribute.slice(-2) || 'us';
 var mixins = {
 	ios: {
 		appMeta: 'apple-itunes-app',
+		urlMeta: 'apple-itunes-app',
 		iconRels: ['apple-touch-icon-precomposed', 'apple-touch-icon'],
 		getStoreLink: function() {
 			return 'https://itunes.apple.com/' + this.options.appStoreLanguage + '/app/id' + this.appId;
@@ -20,6 +21,7 @@ var mixins = {
 	},
 	android: {
 		appMeta: 'google-play-app',
+		urlMeta: 'google-play-app',
 		iconRels: ['android-touch-icon', 'apple-touch-icon-precomposed', 'apple-touch-icon'],
 		getStoreLink: function() {
 			return 'http://play.google.com/store/apps/details?id=' + this.appId;
@@ -27,6 +29,7 @@ var mixins = {
 	},
 	windows: {
 		appMeta: 'msApplication-ID',
+		urlMeta: 'msApplication-URL',
 		iconRels: ['windows-touch-icon', 'apple-touch-icon-precomposed', 'apple-touch-icon'],
 		getStoreLink: function() {
 			return 'http://www.windowsphone.com/s?appid=' + this.appId;
@@ -74,8 +77,8 @@ var SmartBanner = function(options) {
 	if (!this.type
 		|| ( this.type === 'ios' && agent.browser.name === 'Mobile Safari' && parseInt(agent.os.version) >= 6 )
 		|| navigator.standalone
-		|| cookie.get('smartbanner-closed')
-		|| cookie.get('smartbanner-installed')) {
+		|| cookie.get('smartbanner-closed') && this.daysHidden > 0
+		|| cookie.get('smartbanner-installed') && this.daysReminder > 0) {
 		return;
 	}
 
@@ -94,7 +97,6 @@ SmartBanner.prototype = {
 	constructor: SmartBanner,
 
 	create: function() {
-		var link = this.getStoreLink();
 		var inStore = this.options.price[this.type] + ' - ' + this.options.store[this.type];
 		var icon;
 
@@ -123,7 +125,7 @@ SmartBanner.prototype = {
 								'<div>'+this.options.author+'</div>' +
 								'<span>'+inStore+'</span>' +
 							'</div>' +
-							'<a href="'+link+'" class="smartbanner-button">' +
+							'<a href="javascript:void(0);" class="smartbanner-button">' +
 								'<span class="smartbanner-button-text">'+this.options.button+'</span>' +
 							'</a>' +
 						'</div>';
@@ -156,11 +158,41 @@ SmartBanner.prototype = {
 		});
 	},
 	install: function() {
+		this.openOrInstall();
+
 		this.hide();
 		cookie.set('smartbanner-installed', 'true', {
 			path: '/',
 			expires: new Date(+new Date() + this.options.daysReminder * 1000 * 60 * 60 * 24)
 		});
+		return false;
+	},
+	openOrInstall: function() {
+		var url = this.parseUrl();
+		var appStoreUrl = this.getStoreLink();
+		var time = new Date().getTime();
+		if(url) {
+			var timeout = setTimeout(function(){
+				var currentTime = new Date().getTime();
+				if(currentTime - time < 700) {
+					location.href = appStoreUrl;
+				}
+			}, 500);
+
+			var iframe = doc.createElement('iframe');
+			iframe.src = url;
+			iframe.frameborder = 0;
+			iframe.style.width = "1px";
+			iframe.style.height = "1px";
+			iframe.style.position = "absolute";
+			iframe.style.top = "-100px";
+			iframe.onload = function() {
+				clearTimeout(timeout);
+			};
+			doc.body.appendChild(iframe);
+		} else {
+			location.href = appStoreUrl;
+		}
 	},
 	parseAppId: function() {
 		var meta = q('meta[name="' + this.appMeta + '"]');
@@ -175,6 +207,24 @@ SmartBanner.prototype = {
 		}
 
 		return this.appId;
+	},
+	parseUrl: function() {
+		var meta = q('meta[name="' + this.urlMeta + '"]');
+		if (!meta) {
+			return;
+		}
+
+		if (this.type === 'windows') {
+			this.appArgument = meta.getAttribute('content');
+		} else {
+			this.appArgument = /app-argument=([^\s,]+)/.exec(meta.getAttribute('content'))[1];
+		}
+
+		if(typeof this.appArgument == "string") {
+			this.appArgument = unescape(this.appArgument);
+		}
+
+		return this.appArgument;
 	}
 };
 
