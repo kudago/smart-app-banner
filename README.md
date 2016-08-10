@@ -63,7 +63,7 @@ Based on 'jQuery Smart Banner' by Arnold Daniels <arnold@jasny.net> https://gith
 
 ## URL-Integration
 
-If you want to implement custom URL-Integration then just add the app-argument attribute to the meta-tag. Keep in mind to escape the URL-sequence.
+If you want to implement custom URL-Integration, just add the attribute app-argument to the platform-meta-tag. Keep in mind to escape the URL-sequence.
 ```html
     <meta name="apple-itunes-app" content="app-id=502838820, app-argument=myscheme%3A//customUrl">
     <meta name="google-play-app" content="app-id=ru.hh.android, app-argument=myscheme%3A//customUrl">
