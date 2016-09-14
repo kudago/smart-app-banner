@@ -1,0 +1,39 @@
+language: node_js
+
+env:
+  - VERSION=`cat version.txt`
+  - VERSION_V=v${VERSION}
+  - NOW=`date +"%y-%m-%d %H:%M:%S.%N"`
+
+node_js:
+  - node
+  - iojs
+  - 6.1
+  - 6.0
+  - 5.11 
+
+before_install:
+  - egrep -lRZi '"%version%"' --exclude='.travis.yml' . | xargs -0 -l sed -i "s/%version%/${VERSION}/g"
+
+install:
+  - npm i
+  - bower i
+
+script:
+  - npm run eslint
+  - npm run scsslint
+#  - npm test
+  - npm run build
+
+before_deploy:
+  - git remote add deploy https://github.com/kudago/smart-app-banner
+  - if [[ git tag -l | grep -q ${VERSION_V} ]] ; then echo "Version: ${VERSION} already exists!"; exit 1; fi
+
+# https://docs.travis-ci.com/user/deployment/releases/
+deploy:
+  skip_cleanup: true
+  provider: releases
+
+  - git remote add deploy https://github.com/kudago/smart-app-banner
+  - git tag -a ${VERSION_V} -m "Version: ${VERSION} at ${NOW} on build: ${TRAVIS_BUILD_NUMBER}"
+  - git push deploy ${VERSION}

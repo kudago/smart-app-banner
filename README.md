@@ -1,19 +1,37 @@
-Smart App Banner
+Smart App Banner [![Build Status](https://img.shields.io/travis/kudago/smart-app-banner.svg?maxAge=2592000&style=flat-square)](https://travis-ci.org/kudago/smart-app-banner)
 ================
 
-Lightweight smart app banner with no jQuery (or any other framework) requirement.
+[![GitHub release](https://img.shields.io/github/release/kudago/smart-app-banner.svg?maxAge=2592000&style=flat-square)](https://github.com/kudago/smart-app-banner/releases) [![Github All Releases](https://img.shields.io/github/downloads/kudago/smart-app-banner/total.svg?maxAge=2592000?style=flat-square)](https://github.com/kudago/smart-app-banner/releases) [![GitHub issues](https://img.shields.io/github/issues/kudago/smart-app-banner.svg?maxAge=2592000?style=flat-square)](https://github.com/kudago/smart-app-banner/issues) [![GitHub pull requests](https://img.shields.io/github/issues-pr/kudago/smart-app-banner.svg?maxAge=2592000?style=flat-square)](https://github.com/kudago/smart-app-banner/pulls) [![GitHub contributors](https://img.shields.io/github/contributors/kudago/smart-app-banner.svg?maxAge=2592000?style=flat-square)](https://github.com/kudago/smart-app-banner/graphs/contributors) [![GitHub license](https://img.shields.io/github/license/kudago/smart-app-banner.svg?maxAge=2592000?style=flat-square)](https://github.com/kudago/smart-app-banner/blob/master/LICENSE)
 
-Based on 'jQuery Smart Banner' by Arnold Daniels <arnold@jasny.net> https://github.com/jasny/jquery.smartbanner
+[![npm version](https://img.shields.io/npm/v/smart-app-banner.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/smart-app-banner) [![npm dependencies](https://img.shields.io/david/kudago/smart-app-banner.svg?maxAge=2592000&style=flat-square)](https://david-dm.org/kudago/smart-app-banner) [![npm devDependencies](https://img.shields.io/david/dev/kudago/smart-app-banner.svg?maxAge=2592000&style=flat-square)](https://david-dm.org/kudago/smart-app-banner?type=dev) [![npm downloads](https://img.shields.io/npm/dt/smart-app-banner.svg?maxAge=2592000?style=flat-square)](https://www.npmjs.com/package/smart-app-banner)
+
+[![Bower version](https://img.shields.io/bower/v/smart-app-banner.svg?maxAge=2592000&style=flat-square)](https://badge.fury.io/bo/smart-app-banner)
+
+Lightweight smart app banner for Android, iOS or Windows with no jQuery (or any other framework) requirement.
+
+Based on [jQuery Smart Banner](https://github.com/jasny/jquery.smartbanner) by [Arnold Daniels](https://github.com/jasny).
 
 ## Difference
 
 * Standalone (no frameworks required)
-* Different icons/price for iOS and Android
-* Available as npm-module
+* Different icons/price for Android, iOS and Windows
+* Available in bower and npm
 
 ## Installation
 
-`$ npm install --save smart-app-banner`
+### <abbr title="Node Package Manager">NPM</abbr>
+
+`npm install --save smart-app-banner`
+
+### Bower
+
+If you don't have `bower.json` file in you project, first run
+
+`bower init`
+
+then install smart-app-banner
+
+`bower install smart-app-banner --save`
 
 
 ## Usage
@@ -70,6 +88,10 @@ The following commands are available for compiling the project:
 | `npm install` | Installs the required dependencies |
 | `npm run build` | Builds the application JavaScript. |
 
-## See also
+## Alternatives
 
-* [smartappbanner.js](https://github.com/ain/smartbanner.js) an alternative smart app banner.
+* [smartappbanner.js](https://github.com/ain/smartbanner.js) bower, npm 
+* [android-app-banner](https://github.com/SpartzInc/android-app-banner/) bower
+* [smart-web-app-banner](https://github.com/joshsilverman/Smart-Web-App-Banner/) bower
+
+* [List of alternatives](https://libraries.io/search?platforms=Bower&q=smart+app+banner)
