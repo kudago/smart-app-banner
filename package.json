@@ -1,24 +1,12 @@
 {
   "name": "smart-app-banner",
-  "version": "1.3.0",
-  "description": "Smart banner for Android or iOS",
-  "main": "index.js",
-  "scripts": {
-    "build": "browserify index.js -s SmartBanner | ccjs - > smart-app-banner.js"
+  "version": "%version%",
+  "description": "Lightweight smart app banner for Android, iOS or Windows",
+  "homepage": "https://github.com/kudago/smart-app-banner",
+  "author": {
+    "name": "Vitaly Glibin",
+    "email": "glibin.v@gmail.com"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/kudago/smart-app-banner.git"
-  },
-  "keywords": [
-    "smart",
-    "banner",
-    "smartbanner",
-    "android",
-    "iphone",
-    "application"
-  ],
-  "author": "Vitaly Glibin",
   "contributors": [
     {
       "name": "Dmitry Ywanov",
@@ -28,23 +16,66 @@
       "name": "Maxime VALY",
       "email": "maxime.valy@gmail.com",
       "url": "http://maximevaly.github.com/"
+    },
+    {
+      "name": "Contributors",
+      "url": "https://github.com/kudago/smart-app-banner/network/members"
     }
   ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kudago/smart-app-banner/issues"
   },
-  "homepage": "https://github.com/kudago/smart-app-banner",
-  "dependencies": {
-    "component-query": "^0.0.3",
-    "cookie-cutter": "^0.1.1",
-    "get-doc": "^1.0.3",
-    "ua-parser-js": "^0.7.7",
-    "xtend": "^4.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "browserify": "^10.2.4",
-    "ccjs": "^0.2.0",
-    "closurecompiler": "^1.5.1"
-  }
+    "babel-preset-es2015": "^6.9.0",
+    "babelify": "^7.3.0",
+    "bower": "^1.7.9",
+    "browserify": "^13.1.0",
+    "chai": "^3.5.0",
+    "component-query": "0.0.3",
+    "cookie-cutter": "^0.2.0",
+    "eslint": "^2.13.0",
+    "get-doc": "^1.0.3",
+    "http-server": "^0.9.0",
+    "jsdom": "^9.4.0",
+    "mocha": "^2.5.3",
+    "node-sass": "^3.10.0",
+    "postcss-cli": "^2.4.1",
+    "sass-lint": "^1.9.1",
+    "ua-parser-js": "^0.7.10",
+    "uglify-js": "^2.6.2"
+  },
+  "engines": {
+    "node": "^6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kudago/smart-app-banner.git"
+  },
+  "main": "src/smart-app-banner.js",
+  "scripts": {
+    "lint:js": "eslint src/*.js",
+    "compile:js": "browserify src/smart-app-banner.js -s SmartBanner -o dist/smart-app-banner.js -t [ babelify --presets [ es2015 ] ]",
+    "min:js": "uglifyjs dist/smart-app-banner.js -o dist/smart-app-banner.min.js",
+    "lint:css": "node_modules/sass-lint/bin/sass-lint.js src/smart-app-banner.scss",
+    "compile:css": "node_modules/node-sass/bin/node-sass src/smart-app-banner.scss > dist/smart-app-banner.css",
+    "min:css": "node_modules/node-sass/bin/node-sass --output-style=compressed src/smart-app-banner.scss > dist/smart-app-banner.min.css",
+    "build:js": "npm run lint:js && npm run compile:js && npm run min:js",
+    "build:css": "npm run lint:css && npm run compile:css && npm run min:css",
+    "build": "npm run build:js && npm run build:css"
+  },
+  "keywords": [
+    "mobile",
+    "smart",
+    "app",
+    "application",
+    "banner",
+    "smartbanner",
+    "android",
+    "ios",
+    "iphone",
+    "ipad",
+    "windows"
+  ]
 }

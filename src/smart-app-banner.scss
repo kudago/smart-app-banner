@@ -1,0 +1,319 @@
+//colors
+$wild_sand: rgba(244, 244, 244, 1);
+$color_suva_gray_approx: rgba(136, 136, 136, 1);
+$color_silver_chalice_approx: rgba(170, 170, 170, 1);
+$color_dove_gray_approx: rgba(106, 106, 106, 1);
+$white_80: rgba(255, 255, 255, 0.8);
+$color_celeste_approx: rgba(205, 205, 205, 1);
+$black_50: rgba(0, 0, 0, 0.5);
+$white: rgba(255, 255, 255, 1);
+$black_60: rgba(0, 0, 0, 0.6);
+$black_30: rgba(0, 0, 0, 0.3);
+$color_emperor_approx: rgba(77, 77, 77, 1);
+$gallery: rgba(239, 239, 239, 1);
+$color_alto_approx: rgba(220, 220, 220, 1);
+$color_silver_approx: rgba(191, 191, 191, 1);
+$white_60: rgba(255, 255, 255, 0.6);
+$white_70: rgba(255, 255, 255, 0.7);
+$color_masala_approx: rgba(61, 61, 61, 1);
+$color_sushi_approx: rgba(136, 177, 49, 1);
+$color_bombay_approx: rgba(177, 177, 179, 1);
+$color_mirage_approx: rgba(28, 30, 33, 1);
+$black: rgba(0, 0, 0, 1);
+$black_80: rgba(0, 0, 0, 0.8);
+$white_30: rgba(255, 255, 255, 0.3);
+$color_gallery_approx: rgba(238, 238, 238, 1);
+$color_mine_shaft_approx: rgba(51, 51, 51, 1);
+$color_pelorous_approx: rgba(66, 182, 201, 1);
+$color_scooter_approx: rgba(42, 199, 225, 1);
+
+//fonts
+$font_0: Helvetica Neue;
+$font_1: sans-serif;
+$font_2: ArialRoundedMTBold;
+$font_3: Arial;
+
+//urls
+$url_0: url(data:image/gif;base64,R0lGODlhCAAIAIABAFVVVf///yH5BAEHAAEALAAAAAAIAAgAAAINRG4XudroGJBRsYcxKAA7);
+
+.smartbanner-show {
+	margin-top: 80px;
+	.smartbanner {
+		display: block;
+	}
+}
+.smartbanner {
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+	width: 100%;
+	height: 80px;
+	line-height: 80px;
+	font-family: $font_0, $font_1;
+	background: $wild_sand;
+	z-index: 9998;
+	overflow: hidden;
+}
+.smartbanner-container {
+	margin: 0 auto;
+	white-space: nowrap;
+}
+.smartbanner-close {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0 5px;
+	font-family: $font_2, $font_3;
+	font-size: 20px;
+	text-align: center;
+	color: $color_suva_gray_approx;
+	text-decoration: none;
+	border: 0;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 14px;
+	&:active {
+		color: $color_silver_chalice_approx;
+	}
+	&:hover {
+		color: $color_silver_chalice_approx;
+	}
+}
+.smartbanner-icon {
+	display: inline-block;
+	vertical-align: middle;
+	width: 57px;
+	height: 57px;
+	margin-right: 12px;
+	background-size: cover;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 10px;
+}
+.smartbanner-info {
+	display: inline-block;
+	vertical-align: middle;
+	width: 44%;
+	font-size: 11px;
+	line-height: 1.2em;
+	font-weight: bold;
+}
+.smartbanner-title {
+	font-size: 13px;
+	line-height: 18px;
+}
+.smartbanner-button {
+	position: absolute;
+	right: 20px;
+	top: 0;
+	bottom: 0;
+	margin: auto 0;
+	height: 24px;
+	font-size: 14px;
+	line-height: 24px;
+	text-align: center;
+	font-weight: bold;
+	color: $color_dove_gray_approx;
+	text-transform: uppercase;
+	text-decoration: none;
+	//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	text-shadow: 0 1px 0 $white_80;
+	&:active {
+		color: $color_silver_chalice_approx;
+	}
+	&:hover {
+		color: $color_silver_chalice_approx;
+	}
+}
+.smartbanner-button-text {
+	&:active {
+	}
+	&:hover {
+	}
+}
+.smartbanner-ios {
+	background: linear-gradient(to bottom, $wild_sand, $color_celeste_approx);
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 1px 2px $black_50;
+	line-height: 80px;
+	.smartbanner-close {
+		border: 0;
+		width: 18px;
+		height: 18px;
+		line-height: 18px;
+		color: $color_suva_gray_approx;
+		//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 0 1px 0 $white;
+		&:active {
+			color: $color_silver_chalice_approx;
+		}
+		&:hover {
+			color: $color_silver_chalice_approx;
+		}
+	}
+	.smartbanner-icon {
+		background: $black_60;
+		background-size: cover;
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: 0 1px 3px $black_30;
+	}
+	.smartbanner-info {
+		color: $color_dove_gray_approx;
+		//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 0 1px 0 $white_80;
+	}
+	.smartbanner-title {
+		color: $color_emperor_approx;
+		font-weight: bold;
+	}
+	.smartbanner-button {
+		padding: 0 10px;
+		min-width: 10%;
+		color: $color_dove_gray_approx;
+		background: linear-gradient(to bottom, $gallery, $color_alto_approx);
+		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+		border-radius: 3px;
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 0 0 1px $color_silver_approx, 0 1px 0 $white_60, 0 2px 0 $white_70 inset;
+		&:active {
+			background: linear-gradient(to bottom, $color_alto_approx, $gallery);
+		}
+		&:hover {
+			background: linear-gradient(to bottom, $color_alto_approx, $gallery);
+		}
+	}
+	.smartbanner-button-text {
+		&:active {
+		}
+		&:hover {
+		}
+	}
+}
+.smartbanner-android {
+	background: $color_masala_approx $url_0;
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: inset 0 4px 0 $color_sushi_approx;
+	line-height: 82px;
+	.smartbanner-close {
+		border: 0;
+		width: 17px;
+		height: 17px;
+		line-height: 17px;
+		margin-right: 7px;
+		color: $color_bombay_approx;
+		background: $color_mirage_approx;
+		//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 0 1px 1px $black;
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: 0 1px 2px $black_80 inset, 0 1px 1px $white_30;
+		&:active {
+			color: $color_gallery_approx;
+		}
+		&:hover {
+			color: $color_gallery_approx;
+		}
+	}
+	.smartbanner-icon {
+		background-color: transparent;
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: none;
+	}
+	.smartbanner-info {
+		color: $color_celeste_approx;
+		//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 0 1px 2px $black;
+	}
+	.smartbanner-title {
+		color: $white;
+		font-weight: bold;
+	}
+	.smartbanner-button {
+		min-width: 12%;
+		color: $color_celeste_approx;
+		padding: 0;
+		background: none;
+		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+		border-radius: 0;
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: 0 0 0 1px $color_mine_shaft_approx, 0 0 0 2px $color_alto_approx;
+		&:active {
+			background: none;
+		}
+		&:hover {
+			background: none;
+		}
+	}
+	.smartbanner-button-text {
+		text-align: center;
+		display: block;
+		padding: 0 10px;
+		background: linear-gradient(to bottom, $color_pelorous_approx, $color_pelorous_approx);
+		text-transform: none;
+		//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: none;
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: none;
+		&:active {
+			background: $color_scooter_approx;
+		}
+		&:hover {
+			background: $color_scooter_approx;
+		}
+	}
+}
+.smartbanner-windows {
+	background: linear-gradient(to bottom, $wild_sand, $color_celeste_approx);
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 1px 2px $black_50;
+	line-height: 80px;
+	.smartbanner-close {
+		border: 0;
+		width: 18px;
+		height: 18px;
+		line-height: 18px;
+		color: $color_suva_gray_approx;
+		//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 0 1px 0 $white;
+		&:active {
+			color: $color_silver_chalice_approx;
+		}
+		&:hover {
+			color: $color_silver_chalice_approx;
+		}
+	}
+	.smartbanner-icon {
+		background: $black_60;
+		background-size: cover;
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: 0 1px 3px $black_30;
+	}
+	.smartbanner-info {
+		color: $color_dove_gray_approx;
+		//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 0 1px 0 $white_80;
+	}
+	.smartbanner-title {
+		color: $color_emperor_approx;
+		font-weight: bold;
+	}
+	.smartbanner-button {
+		padding: 0 10px;
+		min-width: 10%;
+		color: $color_dove_gray_approx;
+		background: linear-gradient(to bottom, $gallery, $color_alto_approx);
+		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+		border-radius: 3px;
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 0 0 1px $color_silver_approx, 0 1px 0 $white_60, 0 2px 0 $white_70 inset;
+		&:active {
+			background: linear-gradient(to bottom, $color_alto_approx, $gallery);
+		}
+		&:hover {
+			background: linear-gradient(to bottom, $color_alto_approx, $gallery);
+		}
+	}
+	.smartbanner-button-text {
+		&:active {
+		}
+		&:hover {
+		}
+	}
+}
