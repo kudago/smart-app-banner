@@ -92,8 +92,10 @@ var SmartBanner = function(options) {
 
 SmartBanner.prototype = {
 	constructor: SmartBanner,
+	EVENTS : {AFTER_CREATED:'smartbanner:aftercreated'},
 
 	create: function() {
+		var afterCreatedEvent = new Event(this.EVENTS.AFTER_CREATED);
 		var link = this.getStoreLink();
 		var inStore = this.options.price[this.type] + ' - ' + this.options.store[this.type];
 		var icon;
@@ -131,13 +133,14 @@ SmartBanner.prototype = {
 		//there isn’t neccessary a body
 		if (doc.body) {
 			doc.body.appendChild(sb);
+			doc.body.dispatchEvent(afterCreatedEvent);
 		}
 		else if (doc) {
 			doc.addEventListener('DOMContentLoaded', function(){
 				doc.body.appendChild(sb);
+				doc.body.dispatchEvent(afterCreatedEvent);
 			});
 		}
-
 		q('.smartbanner-button', sb).addEventListener('click', this.install.bind(this), false);
 		q('.smartbanner-close', sb).addEventListener('click', this.close.bind(this), false);
 
