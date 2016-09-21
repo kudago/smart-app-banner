@@ -12,8 +12,8 @@ var userLang = userLangAttribute.slice(-2) || 'us';
 // platform dependent functionality
 var mixins = {
 	ios: {
-		appMeta: 'apple-itunes-app',
-		urlMeta: 'apple-itunes-app',
+		appMeta: 'dw-itunes-app',
+		urlMeta: 'dw-itunes-app',
 		iconRels: ['apple-touch-icon-precomposed', 'apple-touch-icon'],
 		getStoreLink: function() {
 			return 'https://itunes.apple.com/' + this.options.appStoreLanguage + '/app/id' + this.appId;
@@ -44,6 +44,8 @@ var SmartBanner = function(options) {
 		daysReminder: 90,
 		appStoreLanguage: userLang, // Language code for App Store
 		button: 'OPEN', // Text for the install button
+		buttonInstall: 'INSTALL',
+		deepLink: null,
 		store: {
 			ios: 'On the App Store',
 			android: 'In Google Play',
@@ -75,7 +77,7 @@ var SmartBanner = function(options) {
 	// - running on standalone mode
 	// - user dismissed banner
 	if (!this.type
-		|| ( this.type === 'ios' && agent.browser.name === 'Mobile Safari' && parseInt(agent.os.version) >= 6 )
+		/*|| ( this.type === 'ios' && agent.browser.name === 'Mobile Safari' && parseInt(agent.os.version) >= 6 )*/
 		|| navigator.standalone
 		|| cookie.get('smartbanner-closed') && this.daysHidden > 0
 		|| cookie.get('smartbanner-installed') && this.daysReminder > 0) {
@@ -95,6 +97,19 @@ var SmartBanner = function(options) {
 
 SmartBanner.prototype = {
 	constructor: SmartBanner,
+	timers: [],
+	showsInstall: false,
+	button: null,
+	clearTimers: function() {
+		this.timers.map(clearTimeout);
+      this.timers = [];
+		console.log("clearing");
+
+		if(this.showsInstall) {
+			this.showsInstall = false;
+			q(".smartbanner-button-text", this.button).innerText = this.options.button;
+		}
+	},
 
 	create: function() {
 		var inStore = this.options.price[this.type] + ' - ' + this.options.store[this.type];
@@ -140,9 +155,16 @@ SmartBanner.prototype = {
 			});
 		}
 
-		q('.smartbanner-button', sb).addEventListener('click', this.install.bind(this), false);
+		this.button = q('.smartbanner-button', sb);
+
+		this.button.addEventListener('click', this.install.bind(this), false);
 		q('.smartbanner-close', sb).addEventListener('click', this.close.bind(this), false);
 
+		// events for opening up apps.
+		console.log("adding listeners");
+		window.addEventListener("pagehide", this.clearTimers.bind(this));
+		window.addEventListener("blur", this.clearTimers.bind(this));
+		window.addEventListener("beforeunload", this.clearTimers.bind(this));
 	},
 	hide: function() {
 		root.classList.remove('smartbanner-show');
@@ -160,36 +182,55 @@ SmartBanner.prototype = {
 	install: function() {
 		this.openOrInstall();
 
-		this.hide();
+		if(this.iOSversion() < 9) {
+			this.hide();
+		}
 		cookie.set('smartbanner-installed', 'true', {
 			path: '/',
 			expires: new Date(+new Date() + this.options.daysReminder * 1000 * 60 * 60 * 24)
 		});
 		return false;
 	},
+	iOSversion: function() {
+  		if (/iP(hone|od|ad)/.test(navigator.platform)) {
+	    // supports iOS 2.0 and later: <http://bit.ly/TJjs1V>
+	    var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+	    return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)];
+	  }
+
+	  return -1;
+  	},
 	openOrInstall: function() {
 		var url = this.parseUrl();
 		var appStoreUrl = this.getStoreLink();
-		var time = new Date().getTime();
-		if(url) {
-			var timeout = setTimeout(function(){
-				var currentTime = new Date().getTime();
-				if(currentTime - time < 700) {
-					location.href = appStoreUrl;
+		if(url && !this.showsInstall) {
+			var time = new Date().getTime();
+			this.timers.push(setTimeout(function(){
+				if(this.iOSversion() < 9) {
+					if((new Date().getTime()) - time < 1000) {
+						window.top.location = appStoreUrl;
+					}
+				} else if(this.options.deepLink != null) {
+					window.location = this.deepLink + escape(url);
+				} else {
+					console.log("change button");
+					this.showsInstall = true;
+					q(".smartbanner-button-text", this.button).innerText = this.options.buttonInstall;
 				}
-			}, 500);
+			}.bind(this), 500));
 
-			var iframe = doc.createElement('iframe');
-			iframe.src = url;
-			iframe.frameborder = 0;
-			iframe.style.width = "1px";
-			iframe.style.height = "1px";
-			iframe.style.position = "absolute";
-			iframe.style.top = "-100px";
-			iframe.onload = function() {
-				clearTimeout(timeout);
-			};
-			doc.body.appendChild(iframe);
+			if(this.type === 'ios') {
+				window.location = url;
+			} else {
+				var iframe = doc.createElement('iframe');
+				iframe.src = url;
+				iframe.frameborder = 0;
+				iframe.style.width = "1px";
+				iframe.style.height = "1px";
+				iframe.style.position = "absolute";
+				iframe.style.top = "-100px";
+				doc.body.appendChild(iframe);
+			}
 		} else {
 			location.href = appStoreUrl;
 		}
