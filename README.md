@@ -52,9 +52,24 @@ Based on 'jQuery Smart Banner' by Arnold Daniels <arnold@jasny.net> https://gith
               android: 'FREE',
               windows: 'FREE'
           }
+          // , theme: '' // put platform type ('ios', 'android', etc.) here to force single theme on all device
+          // , icon: '' // full path to icon image if not using website icon image
           // , force: 'ios' // Uncomment for platform emulation
       });
     </script>
   </body>
 </html>
 ```
+
+## Development
+
+The following commands are available for compiling the project:
+
+| Command | Result |
+| ------- | ------ |
+| `npm install` | Installs the required dependencies |
+| `npm run build` | Builds the application JavaScript. |
+
+## See also
+
+* [smartappbanner.js](https://github.com/ain/smartbanner.js) an alternative smart app banner.

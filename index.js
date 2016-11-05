@@ -4,10 +4,11 @@ var doc = require('get-doc');
 var cookie = require('cookie-cutter');
 var ua = require('ua-parser-js');
 
-var root = doc && doc.documentElement;
-
+// IE < 11 doesn't support navigator language property.
 /* global navigator */
-var userLang = navigator.language.slice(-2) || navigator.userLanguage.slice(-2) || 'us';
+var userLangAttribute = navigator.language || navigator.userLanguage || navigator.browserLanguage;
+var userLang = userLangAttribute.slice(-2) || 'us';
+var root = doc && doc.documentElement;
 
 // platform dependent functionality
 var mixins = {
@@ -51,27 +52,39 @@ var SmartBanner = function (options) {
 			android: 'FREE',
 			windows: 'FREE'
 		},
-		force: false // put platform type (ios, android, etc.) here for emulation
+		theme: '', // put platform type ('ios', 'android', etc.) here to force single theme on all device
+		icon: '', // full path to icon image if not using website icon image
+		force: '' // put platform type ('ios', 'android', etc.) here for emulation
 	}, options || {});
 
 	if (this.options.force) {
 		this.type = this.options.force;
 	} else if (agent.os.name === 'Windows Phone' || agent.os.name === 'Windows Mobile') {
 		this.type = 'windows';
-	// iOS >= 6 has native support for SmartAppBanner
-	} else if (agent.os.name === 'iOS' && Number(agent.os.version) < 6) {
+	} else if (agent.os.name === 'iOS') {
 		this.type = 'ios';
 	} else if (agent.os.name === 'Android') {
 		this.type = 'android';
 	}
 
-	// Don't show banner if device isn't iOS or Android, website is loaded in app, user dismissed banner, or we have no app id in meta
-	if (!this.type || navigator.standalone || cookie.get('smartbanner-closed') || cookie.get('smartbanner-installed')) {
+	// Don't show banner on ANY of the following conditions:
+	// - device os is not supported,
+	// - user is on mobile safari for ios 6 or greater (iOS >= 6 has native support for SmartAppBanner)
+	// - running on standalone mode
+	// - user dismissed banner
+	var unsupported = !this.type;
+	var isMobileSafari = (this.type === 'ios' && agent.browser.name === 'Mobile Safari' && Number(agent.os.version) >= 6);
+	var runningStandAlone = navigator.standalone;
+	var userDismissed = cookie.get('smartbanner-closed');
+	var userInstalled = cookie.get('smartbanner-installed');
+
+	if (unsupported || isMobileSafari || runningStandAlone || userDismissed || userInstalled) {
 		return;
 	}
 
 	extend(this, mixins[this.type]);
 
+	// - If we dont have app id in meta, dont display the banner
 	if (!this.parseAppId()) {
 		return;
 	}
@@ -87,17 +100,24 @@ SmartBanner.prototype = {
 		var link = this.getStoreLink();
 		var inStore = this.options.price[this.type] + ' - ' + this.options.store[this.type];
 		var icon;
-		for (var i = 0; i < this.iconRels.length; i++) {
-			var rel = q('link[rel="' + this.iconRels[i] + '"]');
-			if (rel) {
-				icon = rel.getAttribute('href');
-				break;
+
+		if (this.options.icon) {
+			icon = this.options.icon;
+		} else {
+			for (var i = 0; i < this.iconRels.length; i++) {
+				var rel = q('link[rel="' + this.iconRels[i] + '"]');
+
+				if (rel) {
+					icon = rel.getAttribute('href');
+					break;
+				}
 			}
 		}
 
 		var sb = doc.createElement('div');
-		sb.className = 'smartbanner smartbanner-' + this.type;
+		var theme = this.options.theme || this.type;
 
+		sb.className = 'smartbanner smartbanner-' + theme;
 		sb.innerHTML = '<div class="smartbanner-container">' +
 							'<a href="javascript:void(0);" class="smartbanner-close">&times;</a>' +
 							'<span class="smartbanner-icon" style="background-image: url(' + icon + ')"></span>' +
@@ -133,14 +153,14 @@ SmartBanner.prototype = {
 		this.hide();
 		cookie.set('smartbanner-closed', 'true', {
 			path: '/',
-			expires: Number(new Date()) + (this.options.daysHidden * 1000 * 60 * 60 * 24)
+			expires: new Date(Number(new Date()) + (this.options.daysHidden * 1000 * 60 * 60 * 24))
 		});
 	},
 	install: function () {
 		this.hide();
 		cookie.set('smartbanner-installed', 'true', {
 			path: '/',
-			expires: Number(new Date()) + (this.options.daysReminder * 1000 * 60 * 60 * 24)
+			expires: new Date(Number(new Date()) + (this.options.daysReminder * 1000 * 60 * 60 * 24))
 		});
 	},
 	parseAppId: function () {
