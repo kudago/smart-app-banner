@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "browserify index.js -s SmartBanner | ccjs - > smart-app-banner.js",
-    "precommit": "xo --fix index.js && fixmyjs && stylefmt smart-app-banner.css && npm run test && npm run build",
+    "precommit": "xo --fix index.js && stylefmt smart-app-banner.css && npm run test && npm run build",
     "test": "xo"
   },
   "repository": {
@@ -49,8 +49,6 @@
     "ccjs": "^0.2.0",
     "closurecompiler": "^1.5.1",
     "eslint": "^3.9.1",
-    "fixmyjs": "^1.0.3",
-    "jshint": "^2.9.4",
     "stylefmt": "^4.3.1",
     "xo": "^0.17.0"
   }
