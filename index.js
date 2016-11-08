@@ -1,3 +1,5 @@
+'use strict';
+
 var extend = require('xtend/mutable');
 var q = require('component-query');
 var doc = require('get-doc');

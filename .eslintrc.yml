@@ -4,13 +4,12 @@ env:
 extends: 'eslint:recommended'
 rules:
   no-undef:
-    - ignore
+    - 0
   indent:
     - error
     - tab
   linebreak-style:
-    - error
-    - unix
+    - 0
   quotes:
     - error
     - single
