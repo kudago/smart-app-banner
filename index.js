@@ -56,7 +56,8 @@ var SmartBanner = function (options) {
 		},
 		theme: '', // put platform type ('ios', 'android', etc.) here to force single theme on all device
 		icon: '', // full path to icon image if not using website icon image
-		force: '' // put platform type ('ios', 'android', etc.) here for emulation
+		force: '', // put platform type ('ios', 'android', etc.) here for emulation
+
 	}, options || {});
 
 	if (this.options.force) {
@@ -147,9 +148,16 @@ SmartBanner.prototype = {
 	},
 	hide: function () {
 		root.classList.remove('smartbanner-show');
+
+		if (typeof this.options.close === 'function') {
+			return this.options.close();
+		}
 	},
 	show: function () {
 		root.classList.add('smartbanner-show');
+		if (typeof this.options.show === 'function') {
+			return this.options.show();
+		}
 	},
 	close: function () {
 		this.hide();
@@ -157,6 +165,9 @@ SmartBanner.prototype = {
 			path: '/',
 			expires: new Date(Number(new Date()) + (this.options.daysHidden * 1000 * 60 * 60 * 24))
 		});
+		if (typeof this.options.close === 'function') {
+			return this.options.close();
+		}
 	},
 	install: function () {
 		this.hide();
@@ -164,6 +175,9 @@ SmartBanner.prototype = {
 			path: '/',
 			expires: new Date(Number(new Date()) + (this.options.daysReminder * 1000 * 60 * 60 * 24))
 		});
+		if (typeof this.options.close === 'function') {
+			return this.options.close();
+		}
 	},
 	parseAppId: function () {
 		var meta = q('meta[name="' + this.appMeta + '"]');
