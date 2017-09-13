@@ -18,7 +18,7 @@ var mixins = {
 		appMeta: 'apple-itunes-app',
 		iconRels: ['apple-touch-icon-precomposed', 'apple-touch-icon'],
 		getStoreLink: function () {
-			return 'https://itunes.apple.com/' + this.options.appStoreLanguage + '/app/id' + this.appId;
+			return 'https://itunes.apple.com/' + this.options.appStoreLanguage + '/app/id' + this.appId + "?mt=8";
 		}
 	},
 	android: {
@@ -56,7 +56,8 @@ var SmartBanner = function (options) {
 		},
 		theme: '', // put platform type ('ios', 'android', etc.) here to force single theme on all device
 		icon: '', // full path to icon image if not using website icon image
-		force: '' // put platform type ('ios', 'android', etc.) here for emulation
+		force: '', // put platform type ('ios', 'android', etc.) here for emulation
+
 	}, options || {});
 
 	if (this.options.force) {
@@ -75,7 +76,8 @@ var SmartBanner = function (options) {
 	// - running on standalone mode
 	// - user dismissed banner
 	var unsupported = !this.type || !this.options.store[this.type];
-	var isMobileSafari = (this.type === 'ios' && agent.browser.name === 'Mobile Safari' && Number(agent.os.version) >= 6);
+	var isMobileSafari = (this.type === 'ios' && agent.browser.name === 'Mobile Safari' && parseInt(agent.os.version, 10) >= 6);
+  
 	var runningStandAlone = navigator.standalone;
 	var userDismissed = cookie.get('smartbanner-closed');
 	var userInstalled = cookie.get('smartbanner-installed');
@@ -87,7 +89,8 @@ var SmartBanner = function (options) {
 	extend(this, mixins[this.type]);
 
 	// - If we dont have app id in meta, dont display the banner
-	if (!this.parseAppId()) {
+	// - If opened in safari IOS, dont display the banner
+	if (!this.parseAppId() && agent.os.name === 'IOS' && agent.browser.name === 'Safari') {
 		return;
 	}
 
@@ -147,9 +150,16 @@ SmartBanner.prototype = {
 	},
 	hide: function () {
 		root.classList.remove('smartbanner-show');
+
+		if (typeof this.options.close === 'function') {
+			return this.options.close();
+		}
 	},
 	show: function () {
 		root.classList.add('smartbanner-show');
+		if (typeof this.options.show === 'function') {
+			return this.options.show();
+		}
 	},
 	close: function () {
 		this.hide();
@@ -157,6 +167,9 @@ SmartBanner.prototype = {
 			path: '/',
 			expires: new Date(Number(new Date()) + (this.options.daysHidden * 1000 * 60 * 60 * 24))
 		});
+		if (typeof this.options.close === 'function') {
+			return this.options.close();
+		}
 	},
 	install: function () {
 		this.hide();
@@ -164,6 +177,9 @@ SmartBanner.prototype = {
 			path: '/',
 			expires: new Date(Number(new Date()) + (this.options.daysReminder * 1000 * 60 * 60 * 24))
 		});
+		if (typeof this.options.close === 'function') {
+			return this.options.close();
+		}
 	},
 	parseAppId: function () {
 		var meta = q('meta[name="' + this.appMeta + '"]');
