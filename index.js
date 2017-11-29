@@ -90,7 +90,7 @@ var SmartBanner = function (options) {
 
 	// - If we dont have app id in meta, dont display the banner
 	// - If opened in safari IOS, dont display the banner
-	if (!this.parseAppId() && agent.os.name === 'IOS' && agent.browser.name === 'Safari') {
+	if (!this.parseAppId() || (agent.os.name === 'IOS' && agent.browser.name === 'Safari')) {
 		return;
 	}
 
