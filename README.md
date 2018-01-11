@@ -55,6 +55,10 @@ Based on 'jQuery Smart Banner' by Arnold Daniels <arnold@jasny.net> https://gith
           // , theme: '' // put platform type ('ios', 'android', etc.) here to force single theme on all device
           // , icon: '' // full path to icon image if not using website icon image
           // , force: 'ios' // Uncomment for platform emulation
+          hookInstall: function(type){}, // this hook is called after install button is clicked
+          hookShow: function(type){}, // this hook is called after the banner is displayed
+          hookHide: function(type){}, // this hook is called after the banner is hided
+          hookClose: function(type){}, // this hook is called after close button is closed
       });
     </script>
   </body>
