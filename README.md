@@ -5,6 +5,18 @@ Lightweight smart app banner with no jQuery (or any other framework) requirement
 
 Based on 'jQuery Smart Banner' by Arnold Daniels <arnold@jasny.net> https://github.com/jasny/jquery.smartbanner
 
+## DR fork reason and change.
+
+The module does not provide support for multiple apps as it sets a static cookie
+when the banner is dismissed or installed. Thereby will a dismiss on the xfactor 
+app result in no prompt for the versus app.  
+
+- Change: Append appid to the cookies.
+
+
+The module is only used for Android advertisement. 
+
+
 ## Difference
 
 * Standalone (no frameworks required)

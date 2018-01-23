@@ -77,16 +77,16 @@ var SmartBanner = function (options) {
 	// - user dismissed banner
 	var unsupported = !this.type || !this.options.store[this.type];
 	var isMobileSafari = (this.type === 'ios' && agent.browser.name === 'Mobile Safari' && parseInt(agent.os.version, 10) >= 6);
-  
+
+	extend(this, mixins[this.type]);
+
 	var runningStandAlone = navigator.standalone;
-	var userDismissed = cookie.get('smartbanner-closed');
-	var userInstalled = cookie.get('smartbanner-installed');
+	var userDismissed = cookie.get('smartbanner-closed' + this.parseAppId());
+	var userInstalled = cookie.get('smartbanner-installed' + this.parseAppId());
 
 	if (unsupported || isMobileSafari || runningStandAlone || userDismissed || userInstalled) {
 		return;
 	}
-
-	extend(this, mixins[this.type]);
 
 	// - If we dont have app id in meta, dont display the banner
 	// - If opened in safari IOS, dont display the banner
@@ -163,7 +163,7 @@ SmartBanner.prototype = {
 	},
 	close: function () {
 		this.hide();
-		cookie.set('smartbanner-closed', 'true', {
+		cookie.set('smartbanner-closed' + this.appId, 'true', {
 			path: '/',
 			expires: new Date(Number(new Date()) + (this.options.daysHidden * 1000 * 60 * 60 * 24))
 		});
@@ -173,7 +173,7 @@ SmartBanner.prototype = {
 	},
 	install: function () {
 		this.hide();
-		cookie.set('smartbanner-installed', 'true', {
+		cookie.set('smartbanner-installed' + this.appId, 'true', {
 			path: '/',
 			expires: new Date(Number(new Date()) + (this.options.daysReminder * 1000 * 60 * 60 * 24))
 		});
