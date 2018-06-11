@@ -1,6 +1,6 @@
 'use strict';
 
-var extend = require('xtend/mutable');
+var extend = require('object-assign');
 var q = require('component-query');
 var doc = require('get-doc');
 var cookie = require('cookie-cutter');
@@ -80,7 +80,7 @@ var SmartBanner = function (options) {
 
 	var unsupported = !this.type || !this.options.store[this.type];
 	var isMobileSafari = (this.type === 'ios' && agent.browser.name === 'Mobile Safari' && parseInt(agent.os.version, 10) >= 6);
-  
+
 	var runningStandAlone = navigator.standalone;
 	var userDismissed = cookie.get(this.appId + '-smartbanner-closed');
 	var userInstalled = cookie.get(this.appId + '-smartbanner-installed');
