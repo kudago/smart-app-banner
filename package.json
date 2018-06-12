@@ -1,6 +1,6 @@
 {
   "name": "smart-app-banner",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Smart banner for Android or iOS",
   "main": "index.js",
   "scripts": {
