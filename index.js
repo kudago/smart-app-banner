@@ -170,20 +170,24 @@ SmartBanner.prototype = {
 	},
 	close: function () {
 		this.hide();
-		cookie.set(this.appId + '-smartbanner-closed', 'true', {
-			path: '/',
-			expires: new Date(Number(new Date()) + (this.options.daysHidden * 1000 * 60 * 60 * 24))
-		});
+		if(this.options.daysHidden > 0) {
+			cookie.set(this.appId + '-smartbanner-closed', 'true', {
+				path: '/',
+				expires: new Date(Number(new Date()) + (this.options.daysHidden * 1000 * 60 * 60 * 24))
+			});
+		}
 		if (typeof this.options.close === 'function') {
 			return this.options.close();
 		}
 	},
 	install: function () {
 		this.hide();
-		cookie.set(this.appId + '-smartbanner-installed', 'true', {
-			path: '/',
-			expires: new Date(Number(new Date()) + (this.options.daysReminder * 1000 * 60 * 60 * 24))
-		});
+		if(this.options.daysReminder > 0) {
+			cookie.set(this.appId + '-smartbanner-installed', 'true', {
+				path: '/',
+				expires: new Date(Number(new Date()) + (this.options.daysReminder * 1000 * 60 * 60 * 24))
+			});
+		}
 		if (typeof this.options.close === 'function') {
 			return this.options.close();
 		}
