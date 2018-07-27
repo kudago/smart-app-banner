@@ -69,6 +69,8 @@ The following commands are available for compiling the project:
 | ------- | ------ |
 | `npm install` | Installs the required dependencies |
 | `npm run build` | Builds the application JavaScript. |
+| `npm run lint` | Check for linter error. |
+| `npm run eslint -- --fix index.js` | Fix linter error automatically. |
 
 ## See also
 
