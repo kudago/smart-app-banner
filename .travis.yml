@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "node"
+  - "lts/*"
+  - "8"
+  - "7"
+  - "6"
+script:
+  - npm run build
+  - npm run lint
+
