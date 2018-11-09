@@ -27,13 +27,13 @@ Based on 'jQuery Smart Banner' by Arnold Daniels <arnold@jasny.net> https://gith
     <meta name="google-play-app" content="app-id=ru.hh.android">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="node_modules/smart-app-banner/smart-app-banner.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="node_modules/smart-app-banner/dist/smart-app-banner.css" type="text/css" media="screen">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="android-touch-icon" href="android-icon.png" />
   </head>
   <body>
     ...
-    <script src="node_modules/smart-app-banner/smart-app-banner.js"></script>
+    <script src="node_modules/smart-app-banner/dist/smart-app-banner.js"></script>
     <script type="text/javascript">
       new SmartBanner({
           daysHidden: 15,   // days to hide banner after close button is clicked (defaults to 15)
