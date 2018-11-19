@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "browserify index.js -s SmartBanner | ccjs - > dist/smart-app-banner.js",
-    "lint": "eslint index.js"
+    "lint": "eslint index.js",
+    "eslint": "eslint"
   },
   "repository": {
     "type": "git",
@@ -45,6 +46,7 @@
   },
   "devDependencies": {
     "browserify": "^16.2.2",
-    "closurecompiler": "^1.6.1"
+    "closurecompiler": "^1.6.1",
+    "eslint": "^5.2.0"
   }
 }
