@@ -18,7 +18,7 @@ var mixins = {
 		appMeta: 'apple-itunes-app',
 		iconRels: ['apple-touch-icon-precomposed', 'apple-touch-icon'],
 		getStoreLink: function () {
-			return 'https://itunes.apple.com/' + this.options.appStoreLanguage + '/app/id' + this.appId + "?mt=8";
+			return 'https://itunes.apple.com/' + this.options.appStoreLanguage + '/app/id' + this.appId + '?mt=8';
 		}
 	},
 	android: {
@@ -57,8 +57,22 @@ var SmartBanner = function (options) {
 		theme: '', // put platform type ('ios', 'android', etc.) here to force single theme on all device
 		icon: '', // full path to icon image if not using website icon image
 		force: '', // put platform type ('ios', 'android', etc.) here for emulation
+		close: null,
+		show: null,
+		hookHide: null, // hook for hide function
+		hookShow: null, // hook for show function
+		hookClose: null, // hook for close function
+		hookInstall: null, // hook for install function
 
 	}, options || {});
+
+	//backwards-compatibility with old version below tag 1.4.0
+	if (typeof this.options.close === 'function' && this.options.hookClose === null) {
+		this.options.hookClose = this.options.close;
+	}
+	if (typeof this.options.show === 'function' && this.options.hookShow === null) {
+		this.options.hookShow = this.options.show;
+	}
 
 	if (this.options.force) {
 		this.type = this.options.force;
@@ -158,14 +172,16 @@ SmartBanner.prototype = {
 	hide: function () {
 		root.classList.remove('smartbanner-show');
 
-		if (typeof this.options.close === 'function') {
-			return this.options.close();
+		if (typeof this.options.hookHide === 'function') {
+			return this.options.hookHide(this.type);
+		} else if (typeof this.options.hookClose === 'function') { //deprecated: backwards-compatibility
+			return this.options.hookClose(this.type);
 		}
 	},
 	show: function () {
 		root.classList.add('smartbanner-show');
-		if (typeof this.options.show === 'function') {
-			return this.options.show();
+		if (typeof this.options.hookShow === 'function') {
+			return this.options.hookShow(this.type);
 		}
 	},
 	close: function () {
@@ -174,8 +190,8 @@ SmartBanner.prototype = {
 			path: '/',
 			expires: new Date(Number(new Date()) + (this.options.daysHidden * 1000 * 60 * 60 * 24))
 		});
-		if (typeof this.options.close === 'function') {
-			return this.options.close();
+		if (typeof this.options.hookClose === 'function') {
+			return this.options.hookClose(this.type);
 		}
 	},
 	install: function () {
@@ -184,8 +200,10 @@ SmartBanner.prototype = {
 			path: '/',
 			expires: new Date(Number(new Date()) + (this.options.daysReminder * 1000 * 60 * 60 * 24))
 		});
-		if (typeof this.options.close === 'function') {
-			return this.options.close();
+		if (typeof this.options.hookInstall === 'function') {
+			return this.options.hookInstall(this.type);
+		} else if (typeof this.options.hookClose === 'function') { //deprecated: backwards-compatibility
+			return this.options.hookClose(this.type);
 		}
 	},
 	parseAppId: function () {
