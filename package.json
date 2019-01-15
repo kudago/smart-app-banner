@@ -4,7 +4,7 @@
   "description": "Smart banner for Android or iOS",
   "main": "index.js",
   "scripts": {
-    "build": "browserify index.js -s SmartBanner | ccjs - > dist/smart-app-banner.js",
+    "build": "browserify index.js -s SmartBanner | ccjs - > dist/smart-app-banner.js | gulp sass",
     "lint": "eslint index.js"
   },
   "repository": {
@@ -37,14 +37,22 @@
   },
   "homepage": "https://github.com/kudago/smart-app-banner",
   "dependencies": {
+    "browser-sync": "^2.26.3",
     "component-query": "0.0.3",
     "cookie-cutter": "^0.2.0",
     "get-doc": "^1.0.4",
+    "gulp-rename": "^1.4.0",
+    "gulp-watch": "^5.0.1",
     "object-assign": "^4.1.1",
     "ua-parser-js": "^0.7.18"
   },
   "devDependencies": {
     "browserify": "^16.2.2",
-    "closurecompiler": "^1.6.1"
+    "closurecompiler": "^1.6.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.4"
   }
 }
