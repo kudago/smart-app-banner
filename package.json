@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "browserify index.js -s SmartBanner | ccjs - > dist/smart-app-banner.js | gulp sass",
+    "test": "gulp serve",
     "lint": "eslint index.js"
   },
   "repository": {
