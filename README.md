@@ -69,6 +69,7 @@ The following commands are available for compiling the project:
 | ------- | ------ |
 | `npm install` | Installs the required dependencies |
 | `npm run build` | Builds the application JavaScript. |
+| `npm run test` | Starts a test environment. |
 
 ## See also
 

@@ -138,8 +138,8 @@ SmartBanner.prototype = {
 								'<div>' + this.options.author + '</div>' +
 								'<span>' + inStore + '</span>' +
 							'</div>' +
-							'<a href="' + link + '" class="smartbanner-button">' +
-								'<span class="smartbanner-button-text">' + this.options.button + '</span>' +
+							'<a href="' + link + '" class="smartbanner-button btn blue">' +
+								'<span class="smartbanner-button-text ">' + this.options.button + '</span>' +
 							'</a>' +
 						'</div>';
 
