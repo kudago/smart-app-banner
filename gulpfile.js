@@ -9,7 +9,7 @@ var watch = require('gulp-watch');
 
 gulp.task('sass', function() {
     return gulp.src("./sass/index.scss")
-        .pipe(sass().on('error', sass.logError))
+        .pipe(sass({includePaths: ["./node_modules/materialize-css/sass"]}).on('error', sass.logError))
         .pipe(autoprefixer({
             browsers: ['last 3 versions'],
             cascade: false
@@ -19,6 +19,18 @@ gulp.task('sass', function() {
         .pipe(gulp.dest('./dist'))
         .pipe(browserSync.stream());
 });
+gulp.task('sass:minify', function(){
+    return gulp.src("./sass/index.scss")
+        .pipe(sass({includePaths: ["./node_modules/materialize-css/sass"], outputStyle: "compressed"}).on('error', sass.logError))
+        .pipe(autoprefixer({
+            browsers: ['last 3 versions'],
+            cascade: false
+        }))
+        .pipe(rename('smart-app-banner.min.css'))
+        .pipe(gulp.dest('./dist'))
+        .pipe(browserSync.stream());
+});
+gulp.task('build:prod', ['sass:minify', 'sass']);
 gulp.task('watch:sass', function() {
     gulp.watch("./resources/sass/**/*.scss", ['sass']);
 });
