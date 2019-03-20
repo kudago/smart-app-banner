@@ -7,8 +7,8 @@
   ],
   "description": "Lightweight smart app banner with no jQuery (or any other framework) requirement.",
   "main": [
-    "smart-app-banner.css",
-    "smart-app-banner.js"
+    "dist/smart-app-banner.css",
+    "dist/smart-app-banner.js"
   ],
   "moduleType": [
     "globals"
