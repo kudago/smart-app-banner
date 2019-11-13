@@ -8,7 +8,7 @@ var ua = require('ua-parser-js');
 
 // IE < 11 doesn't support navigator language property.
 /* global navigator */
-var userLangAttribute = navigator.language || navigator.userLanguage || navigator.browserLanguage;
+var userLangAttribute = navigator.language || navigator.userLanguage || navigator.browserLanguage || [];
 var userLang = userLangAttribute.slice(-2) || 'us';
 var root = doc && doc.documentElement;
 
