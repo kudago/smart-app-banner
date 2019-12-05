@@ -18,21 +18,21 @@ var mixins = {
 		appMeta: 'apple-itunes-app',
 		iconRels: ['apple-touch-icon-precomposed', 'apple-touch-icon'],
 		getStoreLink: function () {
-			return 'https://itunes.apple.com/' + this.options.appStoreLanguage + '/app/id' + this.appId + "?mt=8";
+			return this.url;
 		}
 	},
 	android: {
 		appMeta: 'google-play-app',
 		iconRels: ['android-touch-icon', 'apple-touch-icon-precomposed', 'apple-touch-icon'],
 		getStoreLink: function () {
-			return 'http://play.google.com/store/apps/details?id=' + this.appId;
+			return this.url;
 		}
 	},
 	windows: {
 		appMeta: 'msApplication-ID',
 		iconRels: ['windows-touch-icon', 'apple-touch-icon-precomposed', 'apple-touch-icon'],
 		getStoreLink: function () {
-			return 'http://www.windowsphone.com/s?appid=' + this.appId;
+			return this.url;
 		}
 	}
 };
@@ -81,13 +81,13 @@ var SmartBanner = function (options) {
 	}
 
 	this.appMeta = mixins[this.type].appMeta;
-	this.parseAppId();
+	this.parseURL();
 
 	var isMobileSafari = (this.type === 'ios' && agent.browser.name === 'Mobile Safari' && parseInt(agent.os.version, 10) >= 6);
 
 	var runningStandAlone = navigator.standalone;
-	var userDismissed = cookie.get(this.appId + '-smartbanner-closed');
-	var userInstalled = cookie.get(this.appId + '-smartbanner-installed');
+	var userDismissed = cookie.get(this.url + '-smartbanner-closed');
+	var userInstalled = cookie.get(this.url + '-smartbanner-installed');
 
 	if (isMobileSafari || runningStandAlone || userDismissed || userInstalled) {
 		return;
@@ -97,7 +97,7 @@ var SmartBanner = function (options) {
 
 	// - If we dont have app id in meta, dont display the banner
 	// - If opened in safari IOS, dont display the banner
-	if (!this.appId && agent.os.name === 'IOS' && agent.browser.name === 'Safari') {
+	if (!this.url && agent.os.name === 'IOS' && agent.browser.name === 'Safari') {
 		return;
 	}
 
@@ -138,7 +138,7 @@ SmartBanner.prototype = {
 								'<div>' + this.options.author + '</div>' +
 								'<span>' + inStore + '</span>' +
 							'</div>' +
-							'<a href="' + link + '" class="smartbanner-button">' +
+							'<a href="' + link + '" class="smartbanner-button" target="_blank">' + 
 								'<span class="smartbanner-button-text">' + this.options.button + '</span>' +
 							'</a>' +
 						'</div>';
@@ -170,7 +170,7 @@ SmartBanner.prototype = {
 	},
 	close: function () {
 		this.hide();
-		cookie.set(this.appId + '-smartbanner-closed', 'true', {
+		cookie.set(this.url + '-smartbanner-closed', 'true', {
 			path: '/',
 			expires: new Date(Number(new Date()) + (this.options.daysHidden * 1000 * 60 * 60 * 24))
 		});
@@ -180,7 +180,7 @@ SmartBanner.prototype = {
 	},
 	install: function () {
 		this.hide();
-		cookie.set(this.appId + '-smartbanner-installed', 'true', {
+		cookie.set(this.url + '-smartbanner-installed', 'true', {
 			path: '/',
 			expires: new Date(Number(new Date()) + (this.options.daysReminder * 1000 * 60 * 60 * 24))
 		});
@@ -188,19 +188,19 @@ SmartBanner.prototype = {
 			return this.options.close();
 		}
 	},
-	parseAppId: function () {
+	parseURL: function () {
 		var meta = q('meta[name="' + this.appMeta + '"]');
 		if (!meta) {
 			return;
 		}
 
 		if (this.type === 'windows') {
-			this.appId = meta.getAttribute('content');
+			this.url = meta.getAttribute('content');
 		} else {
-			this.appId = /app-id=([^\s,]+)/.exec(meta.getAttribute('content'))[1];
+			this.url = /url=([^\s,]+)/.exec(meta.getAttribute('content'))[1];
 		}
 
-		return this.appId;
+		return this.url;
 	}
 };
 
