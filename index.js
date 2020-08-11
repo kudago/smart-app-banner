@@ -172,7 +172,8 @@ SmartBanner.prototype = {
 		this.hide();
 		cookie.set(this.appId + '-smartbanner-closed', 'true', {
 			path: '/',
-			expires: new Date(Number(new Date()) + (this.options.daysHidden * 1000 * 60 * 60 * 24))
+			expires: new Date(Number(new Date()) + (this.options.daysHidden * 1000 * 60 * 60 * 24)),
+			secure: true
 		});
 		if (typeof this.options.close === 'function') {
 			return this.options.close();
@@ -182,7 +183,8 @@ SmartBanner.prototype = {
 		this.hide();
 		cookie.set(this.appId + '-smartbanner-installed', 'true', {
 			path: '/',
-			expires: new Date(Number(new Date()) + (this.options.daysReminder * 1000 * 60 * 60 * 24))
+			expires: new Date(Number(new Date()) + (this.options.daysReminder * 1000 * 60 * 60 * 24)),
+			secure: true
 		});
 		if (typeof this.options.close === 'function') {
 			return this.options.close();
