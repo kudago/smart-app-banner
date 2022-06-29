@@ -57,6 +57,7 @@ var SmartBanner = function (options) {
 		theme: '', // put platform type ('ios', 'android', etc.) here to force single theme on all device
 		icon: '', // full path to icon image if not using website icon image
 		force: '', // put platform type ('ios', 'android', etc.) here for emulation
+		applyDespiteNative: false, // for standalone (pwa) and iOS (mobile) Safari this library is superfluous, set true to use it nevertheless
 
 	}, options || {});
 
@@ -70,36 +71,38 @@ var SmartBanner = function (options) {
 		this.type = 'android';
 	}
 
+
 	// Don't show banner on ANY of the following conditions:
-	// - device os is not supported,
-	// - user is on mobile safari for ios 6 or greater (iOS >= 6 has native support for SmartAppBanner)
-	// - running on standalone mode
+
+	// - device os is fundamentally not supported by this library,
+	// - required configuration (HTML meta app id) is not set
+	// - user is on mobile safari for ios 6 or greater (iOS >= 6 has native support for SmartAppBanner) or running on standalone mode and applyDespiteNative is not true
 	// - user dismissed banner
+
 	var unsupported = !this.type || !this.options.store[this.type];
 	if (unsupported) {
 		return;
 	}
 
 	this.appMeta = mixins[this.type].appMeta;
-	this.parseAppId();
+	if(!this.siftAppId()) {
+		return;
+	}
 
 	var isMobileSafari = (this.type === 'ios' && agent.browser.name === 'Mobile Safari' && parseInt(agent.os.version, 10) >= 6);
-
 	var runningStandAlone = navigator.standalone;
+	if((isMobileSafari || runningStandAlone) && this.options.applyDespiteNative !== true) {
+		return;
+	}
+
 	var userDismissed = cookie.get(this.appId + '-smartbanner-closed');
 	var userInstalled = cookie.get(this.appId + '-smartbanner-installed');
-
-	if (isMobileSafari || runningStandAlone || userDismissed || userInstalled) {
+	if (userDismissed || userInstalled) {
 		return;
 	}
+
 
 	extend(this, mixins[this.type]);
-
-	// - If we dont have app id in meta, dont display the banner
-	// - If opened in safari IOS, dont display the banner
-	if (!this.appId && agent.os.name === 'IOS' && agent.browser.name === 'Safari') {
-		return;
-	}
 
 	this.create();
 	this.show();
@@ -188,10 +191,10 @@ SmartBanner.prototype = {
 			return this.options.close();
 		}
 	},
-	parseAppId: function () {
+	siftAppId: function () {
 		var meta = q('meta[name="' + this.appMeta + '"]');
 		if (!meta) {
-			return;
+			return false;
 		}
 
 		if (this.type === 'windows') {
@@ -200,7 +203,7 @@ SmartBanner.prototype = {
 			this.appId = /app-id=([^\s,]+)/.exec(meta.getAttribute('content'))[1];
 		}
 
-		return this.appId;
+		return true;
 	}
 };
 
