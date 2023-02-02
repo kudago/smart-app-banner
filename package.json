@@ -4,8 +4,7 @@
   "description": "Smart banner for Android or iOS",
   "main": "index.js",
   "scripts": {
-    "build": "browserify index.js -s SmartBanner | ccjs - > dist/smart-app-banner.js",
-    "lint": "eslint index.js"
+    "build": "eslint index.js | webpack --mode production --entry ./index.js --output-path ./dist --output-filename=smart-app-banner.js"
   },
   "repository": {
     "type": "git",
@@ -44,7 +43,8 @@
     "ua-parser-js": "^0.7.18"
   },
   "devDependencies": {
-    "browserify": "^16.2.2",
-    "closurecompiler": "^1.6.1"
+    "eslint": "^8.33.0",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   }
 }
