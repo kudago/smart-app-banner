@@ -25,7 +25,7 @@ var mixins = {
 		appMeta: 'google-play-app',
 		iconRels: ['android-touch-icon', 'apple-touch-icon-precomposed', 'apple-touch-icon'],
 		getStoreLink: function () {
-			return 'http://play.google.com/store/apps/details?id=' + this.appId;
+			return 'market://details?id=' + this.appId;
 		}
 	},
 	windows: {
