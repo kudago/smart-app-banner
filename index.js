@@ -25,7 +25,7 @@ var mixins = {
 		appMeta: 'google-play-app',
 		iconRels: ['android-touch-icon', 'apple-touch-icon-precomposed', 'apple-touch-icon'],
 		getStoreLink: function () {
-			return 'http://play.google.com/store/apps/details?id=' + this.appId;
+			return 'market://details?id=' + this.appId;
 		}
 	},
 	windows: {
@@ -40,6 +40,7 @@ var mixins = {
 var SmartBanner = function (options) {
 	var agent = ua(navigator.userAgent);
 	this.options = extend({}, {
+		showAnyWay:false, // show anyway opened or closed
 		daysHidden: 15,
 		daysReminder: 90,
 		appStoreLanguage: userLang, // Language code for App Store
@@ -170,20 +171,24 @@ SmartBanner.prototype = {
 	},
 	close: function () {
 		this.hide();
-		cookie.set(this.appId + '-smartbanner-closed', 'true', {
-			path: '/',
-			expires: new Date(Number(new Date()) + (this.options.daysHidden * 1000 * 60 * 60 * 24))
-		});
+		if (this.options.showAnyWay === false) {
+			cookie.set(this.appId + '-smartbanner-closed', 'true', {
+				path: '/',
+				expires: new Date(Number(new Date()) + (this.options.daysHidden * 1000 * 60 * 60 * 24))
+			});
+		}
 		if (typeof this.options.close === 'function') {
 			return this.options.close();
 		}
 	},
 	install: function () {
 		this.hide();
-		cookie.set(this.appId + '-smartbanner-installed', 'true', {
-			path: '/',
-			expires: new Date(Number(new Date()) + (this.options.daysReminder * 1000 * 60 * 60 * 24))
-		});
+		if (this.options.showAnyWay === false) {
+			cookie.set(this.appId + '-smartbanner-installed', 'true', {
+				path: '/',
+				expires: new Date(Number(new Date()) + (this.options.daysReminder * 1000 * 60 * 60 * 24))
+			});
+		}
 		if (typeof this.options.close === 'function') {
 			return this.options.close();
 		}
